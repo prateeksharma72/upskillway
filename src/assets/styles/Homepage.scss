@@ -1,0 +1,604 @@
+/* =================================================================== */
+/* YOUR ORIGINAL DESKTOP STYLES - UNCHANGED, AS REQUESTED             */
+/* =================================================================== */
+
+/* Reset and Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #5848c2;
+    --secondary-color: #6f14d1;
+    --accent-color: white;
+    --black: #000000;
+    --white: #ffffff;
+    --lavender: #E6E6FA; /* Lavender color for buttons */
+}
+
+/* Body */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+    background-color: var(--accent-color) !important;
+    color: var(--black);
+    overflow-x: hidden;
+}
+
+/* Ensure the container fills the viewport */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Fill the entire viewport height */
+}
+
+/* Container */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #ffffff !important;
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    color: var(--white);
+    text-align: center;
+}
+
+/* Main Content */
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Changed to column to stack heading on top */
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 4rem 2rem 2rem 2rem;
+    background: #ECF5FE;
+    text-align: initial;
+    flex-wrap: wrap;
+    min-height: 110vh;
+}
+
+/* Remove margins from main and footer */
+main {
+    margin: 0;
+    flex-grow: 1; /* Allow main to take up remaining space */
+}
+
+footer {
+    margin: 0;
+}
+
+/* Main Heading */
+.main-heading {
+    width: 100%;
+    font-size: 48px;
+    font-weight: 600;
+    font-style: normal;
+    color: black;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+    margin-top: 0;
+    text-align: left;
+    z-index: 10; /* Ensure heading stays on top */
+}
+
+/* Content wrapper for side-by-side layout */
+.content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+/* Description Section */
+.description-section {
+    max-width: 800px;
+    text-align: left;
+    flex: 1;
+    padding-top: 0; /* Reset padding since heading is now separate */
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 5rem;
+    margin-left: 3rem;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.button1{
+    background-color: #EE5935;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 0.75rem 1.5rem;
+}
+
+.button2{
+    background-color: #EE5935;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 0.75rem 1.5rem;
+}
+
+.para1{
+    margin-top: 10rem;
+    color: black;
+    font-size: 20px;
+    max-width: 600px;
+}
+
+.img-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Changed from center to flex-start */
+    height: 700px;
+    width: 800px;
+    margin-top: 10px;
+    padding-top: 3rem; /* Added padding to align with text section */
+}
+
+.img-section img {
+    position: relative;
+    max-width: 100%;
+    height: 500px;
+    width: 400px;
+    border-radius: 20px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 5px 5px 10px black;
+}
+
+.img-section img:hover {
+    transform: scale(1.2) ;
+}
+
+.mobile1{
+    position: relative;
+    box-shadow: #000000;
+}
+
+.mobile2{
+    margin-top: -50px;
+    margin-right: 100px;
+    margin-left: -40px;
+    position: absolute; 
+}
+
+.info-section {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin-left: 1rem;
+}
+
+.info-section h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.plan-box {
+  margin-bottom: 1rem;
+}
+
+.plan-box h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.plan-box p {
+  color: #555;
+}
+
+
+/* =================================================================== */
+/* 🌍 RESPONSIVE OVERRIDES FOR SMALLER DEVICES                        */
+/* These styles will only apply on screens smaller than 1024px.      */
+/* =================================================================== */
+
+@media (max-width: 1024px) {
+  /* Make the main layout a single column */
+  .main-content {
+    flex-direction: column;
+    height: auto; /* Let height be determined by content */
+    padding: 3rem 1.5rem;
+    gap: 1rem; /* Reduced gap for mobile */
+  }
+
+  /* Content wrapper adjustments for mobile */
+  .content-wrapper {
+    flex-direction: column;
+    gap: 3rem; /* Add space between text and image sections */
+  }
+
+  /* Center the text section */
+  .description-section {
+    text-align: center;
+    max-width: 100%;
+    padding-top: 0; /* Reset desktop padding */
+  }
+
+  /* Reset harmful desktop-only margins and adjust fonts */
+  .main-heading {
+    margin-top: 0; /* CRITICAL: Reset the huge negative margin */
+    width: auto; /* CRITICAL: Remove 100vw width */
+    font-size: 38px;
+    line-height: 1.3;
+  }
+  
+  .para1 {
+    margin-top: 1.5rem; /* Reduce the large top margin */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Stack buttons vertically and center them */
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    margin-left: 0; /* Reset the left margin */
+  }
+  
+  .button1, .button2 {
+      width: 80%;
+      max-width: 300px;
+  }
+
+  /* Tidy up the image section for mobile */
+  .img-section {
+    width: 100%;
+    height: auto;
+    flex-direction: column; /* Stack the images */
+    gap: 2rem; /* Add space between the stacked images */
+    align-items: center;
+    padding-top: 0; /* Reset desktop padding */
+  }
+
+  .img-section img {
+      position: static; /* CRITICAL: remove relative/absolute positioning */
+      width: 70%;
+      max-width: 280px;
+      height: auto;
+  }
+  
+  /* Reset the specific positioning of the second image */
+  .mobile2 {
+      margin: 0; /* CRITICAL: Reset all margins */
+  }
+
+  .img-section img:hover {
+      transform: scale(1.1); /* A more subtle hover effect for mobile */
+  }
+  
+  .info-section {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+  }
+}
+
+/* Additional fine-tuning for very small phone screens */
+@media (max-width: 576px) {
+    .main-heading {
+        font-size: 32px;
+    }
+    
+    .para1 {
+        font-size: 18px;
+    }
+    
+    .main-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* ===== New hero design - FIXED FOR FULL WIDTH ===== */
+*, *::before, *::after { 
+    box-sizing: border-box; 
+}
+
+:root { 
+    --bg: #ffffff; 
+    --muted: #9099a6; 
+    --text: #111214; 
+    --ring: rgba(0,0,0,0.06); 
+    --accent: #6ea4ff; 
+}
+
+body { 
+    background: var(--bg) !important; 
+    color: var(--text); 
+}
+
+/* FIXED: Make hero take full width */
+.hero { 
+    position: relative; 
+    padding: 7.5rem 2rem 3rem 2rem; 
+    width: 100% !important; /* Force full width */
+    max-width: none !important; /* Remove max-width constraint */
+    margin: 0 !important; /* Remove auto margins */
+    background-color: #ffffff !important; /* Fixed background color */
+}
+
+.hero-bg { 
+    position: absolute; 
+    inset: 0 0 auto 0; 
+    height: 760px; 
+    background: radial-gradient(800px 800px at 30% 0%, rgba(0,0,0,0.06) 0%, transparent 70%), radial-gradient(600px 600px at 75% 5%, rgba(0,0,0,0.05) 0%, transparent 70%); 
+    pointer-events: none; 
+}
+
+.hero-aside { 
+    position: absolute; 
+    left: 16px; 
+    top: 120px; 
+    width: 80px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 28px; 
+    color: var(--muted); 
+}
+
+.hero-aside .meta { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    font-size: 12px; 
+}
+
+.hero-aside .meta-label { 
+    display: block; 
+    color: var(--muted); 
+}
+
+.hero-aside .meta-value { 
+    display: block; 
+    color: #1b1d20; 
+    font-weight: 600; 
+    margin-top: 2px; 
+}
+
+.hero-aside .socials { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+    margin-top: 8px; 
+}
+
+.hero-aside .socials a { 
+    color: #444b53; 
+    text-decoration: none; 
+    font-size: 14px; 
+    transition: color .2s ease; 
+}
+
+.hero-aside .socials a:hover { 
+    color: #111214; 
+}
+
+.hero-content { 
+    margin-left: 120px; 
+    width: calc(100% - 120px) !important; /* Ensure content takes remaining width */
+}
+
+.hero-title { 
+    font-size: 56px; 
+    line-height: 1.1; 
+    font-weight: 700; 
+    letter-spacing: -0.5px; 
+    margin-bottom: 28px; 
+}
+
+.hero-title .quote { 
+    color: #6a6a6a; 
+    font-weight: 400; 
+}
+
+.card-row { 
+    display: grid; 
+    grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    gap: 24px; 
+    margin: 22px 0 36px 0; 
+    width: 100% !important; /* Ensure cards take full width */
+}
+
+.hero-card { 
+    background: #fff; 
+    border-radius: 14px; 
+    box-shadow: 0 12px 30px var(--ring); 
+    overflow: hidden; 
+}
+
+.hero-card img { 
+    width: 100%; 
+    height: 160px; 
+    object-fit: cover; 
+    display: block; 
+}
+
+.hero-card figcaption { 
+    padding: 10px 12px 14px 12px; 
+}
+
+.caption-title { 
+    font-size: 12px; 
+    color: #666; 
+    margin-bottom: 4px; 
+}
+
+.caption-sub { 
+    font-size: 12px; 
+    color: #333; 
+}
+
+.hero-footer-row { 
+    display: grid; 
+    grid-template-columns: 1fr auto; 
+    align-items: center; 
+    gap: 24px; 
+    margin-top: 16px; 
+    width: 100% !important; /* Ensure footer takes full width */
+}
+
+.hero-labels .label-title { 
+    font-weight: 700; 
+    letter-spacing: .08em; 
+    text-transform: uppercase; 
+    font-size: 14px; 
+    color: #1b1d20; 
+    margin-bottom: 6px; 
+}
+
+.hero-labels .label-sub { 
+    color: #5b6168; 
+    font-size: 14px; 
+}
+
+.hero-index { 
+    font-size: 56px; 
+    font-weight: 700; 
+    color: #1b1d20; 
+    position: relative; 
+    padding-left: 36px; 
+}
+
+.hero-index:before { 
+    content: ""; 
+    position: absolute; 
+    left: 0; 
+    top: 50%; 
+    width: 26px; 
+    height: 2px; 
+    background: #111214; 
+    transform: translateY(-50%) rotate(-35deg); 
+    box-shadow: 14px -14px 0 0 #111214; 
+    opacity: 0.35; 
+}
+
+/* RESPONSIVE: Mobile styles matching the design */
+@media (max-width: 1024px) {
+  .hero { 
+    padding: 3rem 2rem 2rem 2rem; 
+    width: 100% !important;
+    background-color: #f8f9fa !important;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .hero-aside { 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%; 
+    margin-bottom: 2rem; 
+    margin-top: 0;
+  }
+  
+  .hero-aside .socials {
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 0;
+  }
+  
+  .hero-content { 
+    margin-left: 0; 
+    width: 100% !important;
+    padding-top: 0;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    margin-bottom: 40px;
+  }
+  
+  .card-row { 
+    grid-template-columns: 1fr 1fr; 
+    width: 100% !important;
+    gap: 16px;
+    margin: 40px 0 40px 0;
+  }
+
+  .hero-footer-row {
+    width: 100% !important;
+    margin-top: 30px;
+  }
+
+  .hero-index {
+    font-size: 80px;
+    padding-left: 40px;
+  }
+
+  .hero-index:before {
+    width: 30px;
+    box-shadow: 15px -15px 0 0 #111827;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title { 
+    font-size: 36px; 
+    line-height: 1.1;
+  }
+  
+  .card-row { 
+    grid-template-columns: 1fr; 
+    width: 100% !important;
+    gap: 14px;
+  }
+  
+  .hero-index { 
+    font-size: 60px;
+    padding-left: 30px;
+  }
+
+  .hero {
+    width: 100% !important;
+    background-color: #f8f9fa !important;
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-content {
+    width: 100% !important;
+  }
+
+  .hero-footer-row {
+    width: 100% !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .hero-index {
+    align-self: flex-end;
+  }
+}

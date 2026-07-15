@@ -1,0 +1,526 @@
+// --- START: SCSS VARIABLES (Copied from _variables.scss) ---
+
+// Colors
+$primary-color: #3498db;
+$sidebar-bg: #2c3e50;
+$sidebar-text-color: #ecf0f1;
+$sidebar-active-bg: #34495e;
+$sidebar-hover-bg: #3b5168;
+
+$header-bg: #ffffff;
+$header-text-color: #333;
+$header-border-color: #e8e8e8;
+
+$content-bg: #f0f2f5;
+$card-bg: #ffffff;
+$card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+$card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+$text-primary: #2c3e50;
+$text-secondary: #576574;
+$text-light: #7f8c8d;
+
+$border-color: #e0e0e0;
+$table-header-bg: #f8f9fa;
+$table-row-hover-bg: #e9ecef;
+
+$error-bg: #fbebeb;
+$error-text: #c0392b;
+$error-border: #e74c3c;
+$success-color: #27ae60;
+$accent-color-blue: #4858C2;
+
+// User Lookup Specific Colors
+$accent-blue: #3B82F6;
+$input-border: #D1D5DB;
+$input-focus: #4c38f1;
+$success-green: #059669;
+$error-red: #e53935;
+
+// Typography
+$font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+  Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.25rem;
+
+// Layout
+$sidebar-width-desktop: 260px;
+$sidebar-width-mobile-open: 240px;
+$header-height: 60px;
+
+// Breakpoints
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+// Transitions
+$transition-speed: 0.3s;
+$transition-easing: ease-in-out;
+
+// --- END: SCSS VARIABLES ---
+
+// --- START: COMPONENT-SPECIFIC STYLES ---
+
+// Styles for the main content wrapper of the overview page
+.admin-overview-content {
+  padding: 24px;
+
+  // Make the layout responsive on smaller screens
+  @media (max-width: $bp-md) {
+    padding: 16px;
+  }
+}
+
+// Styles for the header containing the title and logout button
+.admin-overview-header {
+  display: flex;
+  justify-content: space-between; // Pushes title and button to opposite ends
+  align-items: center;            // Vertically aligns them
+  margin-bottom: 24px;            // Space between header and cards
+
+  h2 {
+    margin: 0; // Remove default margin from the heading
+    color: $text-primary;
+    font-size: $font-size-lg + 0.2rem; // Slightly larger title
+    font-weight: 600;
+  }
+
+  // On smaller screens, stack the title and button
+  @media (max-width: $bp-sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px; // Add some space between the stacked items
+  }
+}
+
+// Styles for the logout button in the header
+.logout-button {
+  background-color: $error-border;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px; // Slightly softer corners
+  cursor: pointer;
+  font-weight: 500;
+  font-size: $font-size-sm;
+  transition: background-color $transition-speed ease, transform $transition-speed ease;
+
+  &:hover {
+    background-color: darken($error-border, 10%);
+    transform: translateY(-2px);
+  }
+}
+
+// Container for all the cards, using a responsive grid
+.cards-container {
+  display: grid;
+  // Creates as many columns as can fit, with a minimum width of 280px
+  // With only one card, it will simply take up the full width.
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 2.5rem; // Space between cards and user lookup section
+
+  @media (max-width: $bp-sm) {
+    gap: 16px;
+  }
+}
+
+// Base styles for the remaining overview card
+.card.admin-overview-card {
+  background-color: $card-bg;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: $card-shadow;
+  transition: box-shadow $transition-speed $transition-easing, transform $transition-speed $transition-easing;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: $card-hover-shadow;
+    transform: translateY(-5px);
+  }
+
+  // Card title
+  h3 {
+    margin: 0 0 8px;
+    color: $text-primary;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  // Card description text
+  .card-description {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  // Wrapper for the main data points in the card
+  .card-content {
+    h2 { // For large figures like the total investment amount
+      font-size: 2.25rem;
+      color: $accent-color-blue;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+
+    h4 { // For sub-titles like "Active Plans"
+      font-size: $font-size-base;
+      font-weight: 500;
+      color: $text-primary;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      padding-top: 16px;
+      border-top: 1px solid $border-color; // Visual separator
+    }
+
+    p { // For smaller data lines
+      color: $text-light;
+      font-size: $font-size-sm;
+      margin: 4px 0;
+    }
+
+    // Style for the error message if data fails to load
+    .error-text {
+      color: $error-text;
+      font-weight: 500;
+    }
+
+    // System status specific styles
+    .system-status {
+      p {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        margin: 8px 0;
+        
+        &:first-child {
+          color: $success-color;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// ========================================================================
+// USER LOOKUP SECTION STYLES
+// ========================================================================
+
+.user-lookup-section {
+  margin-bottom: 2.5rem;
+  
+  .lookup-card {
+    background: $card-bg;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: $card-shadow;
+    border: 1px solid $border-color;
+    transition: box-shadow $transition-speed $transition-easing;
+    
+    &:hover {
+      box-shadow: $card-hover-shadow;
+    }
+    
+    @media (max-width: $bp-md) {
+      padding: 1.5rem;
+    }
+    
+    .lookup-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $text-primary;
+      margin: 0 0 0.5rem 0;
+      
+      @media (max-width: $bp-md) {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .lookup-description {
+      color: $text-secondary;
+      margin: 0 0 2rem 0;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ========================================================================
+// FORM STYLES
+// ========================================================================
+
+.lookup-form {
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      align-items: end;
+      gap: 1rem;
+    }
+  }
+  
+  .input-group {
+    flex: 1;
+    
+    label {
+      display: block;
+      font-weight: 600;
+      color: $text-primary;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .user-id-input,
+    .period-select {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid $input-border;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: $font-family-sans;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      
+      &:focus {
+        outline: none;
+        border-color: $input-focus;
+        box-shadow: 0 0 0 3px rgba(76, 56, 241, 0.1);
+      }
+      
+      &:disabled {
+        background-color: #f9fafb;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+    
+    .period-select {
+      cursor: pointer;
+      
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  .btn-lookup {
+    background: $accent-blue;
+    color: #fff;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    
+    &:hover:not(:disabled) {
+      background: darken($accent-blue, 8%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    @media (min-width: $bp-md) {
+      padding: 0.875rem 2.5rem;
+    }
+  }
+}
+
+// ========================================================================
+// USER INVESTMENT RESULT STYLES
+// ========================================================================
+
+.user-investment-result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  
+  &.loading {
+    background: #f0f9ff;
+    border-color: #bae6fd;
+    
+    p {
+      color: $accent-blue;
+      font-weight: 500;
+      margin: 0;
+      text-align: center;
+    }
+  }
+  
+  &.error {
+    background: #fef2f2;
+    border-color: #fecaca;
+    
+    h4 {
+      color: $error-red;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+    
+    p {
+      color: darken($error-red, 10%);
+      margin: 0 0 1rem 0;
+      line-height: 1.4;
+    }
+  }
+  
+  &.success {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    
+    h4 {
+      color: $success-green;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+    }
+    
+    .investment-details {
+      margin-bottom: 1.5rem;
+      
+      p {
+        margin: 0 0 0.5rem 0;
+        color: $text-primary;
+        line-height: 1.4;
+        
+        strong {
+          font-weight: 600;
+          color: darken($success-green, 10%);
+        }
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  
+  .btn-clear {
+    background: $text-secondary;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: darken($text-secondary, 10%);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// ========================================================================
+// ANIMATIONS & TRANSITIONS
+// ========================================================================
+
+// Loading animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-text {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// Fade in animation for cards
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lookup-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// ========================================================================
+// RESPONSIVE UTILITIES
+// ========================================================================
+
+// Hide elements on mobile
+@media (max-width: #{$bp-md - 1px}) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+// Hide elements on tablet and up
+@media (min-width: $bp-md) {
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+// ========================================================================
+// ACCESSIBILITY IMPROVEMENTS
+// ========================================================================
+
+// Focus styles for better accessibility
+.btn-lookup:focus,
+.btn-clear:focus {
+  outline: 2px solid $input-focus;
+  outline-offset: 2px;
+}
+
+// Reduced motion for users who prefer it
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .lookup-card {
+    border-width: 2px;
+  }
+  
+  .btn-lookup,
+  .btn-clear {
+    border: 2px solid currentColor;
+  }
+}

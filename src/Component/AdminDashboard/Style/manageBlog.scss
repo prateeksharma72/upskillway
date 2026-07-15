@@ -1,0 +1,495 @@
+// App.scss or manageBlog.scss
+$app-bg-color: #e6f5ff;
+$side-bg-color: #1a1a2e; // Used for sidebar, not directly in this file
+$sidebar-text-color: #ffffff; // Used for sidebar text
+$button-bg-color: #6d6e71;
+$button-text-color: #ffffff;
+$text-dark: #333;
+$card-bg: #f8f9fa; // Lightened card background for a softer look
+$border-color: #dee2e6; // Consistent border color
+
+// General button styling (can be overridden by more specific selectors)
+button {
+  background-color: $button-bg-color;
+  color: $button-text-color;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    background-color: darken($button-bg-color, 10%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  &:active {
+    background-color: darken($button-bg-color, 15%);
+  }
+}
+
+.dashboard-manageBlog {
+  display: flex;
+  min-height: 100vh; // Ensure it takes at least full viewport height
+  background-color: $app-bg-color;
+}
+
+// If .app is a global wrapper, its styles are generally fine.
+// .app {
+//   // display: flex; // Handled by .dashboard-manageBlog
+//   // background-color: $app-bg-color; // Handled by .dashboard-manageBlog
+//   // height: 100vh; // Handled by .dashboard-manageBlog
+// }
+
+.main-content-manageBlog {
+  padding: 25px;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  h2 {
+    color: $text-dark;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+  }
+
+  .stats {
+    display: flex;
+    gap: 25px;
+    margin: 30px 0;
+
+    .stat {
+      background: #ffffff;
+      padding: 20px;
+      flex: 1;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+
+      h4 {
+        margin: 0 0 10px 0;
+        color: $text-dark;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      p {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: $button-bg-color;
+      }
+    }
+  }
+
+  .recent-blog {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    .recent-blog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h4 {
+        margin: 0;
+        color: $text-dark;
+        font-size: 1.4rem;
+      }
+
+      .add-new { // Targets the "+ Add New" button in the header
+        margin-top: 0;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        background-color: #007bff; // Example: Blue for "Add New"
+        color: white;
+        &:hover {
+          background-color: darken(#007bff, 10%);
+        }
+      }
+    }
+
+    // Styles for the list of blogs
+    .blog-list-manageBlog {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; // Space between blog items
+    }
+
+    // Styles for each individual blog item
+    .blog-item-manageBlog {
+      display: flex;
+      align-items: flex-start; // Align items to the top if content varies in height
+      padding: 15px;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      background-color: $card-bg; // Use card background
+      gap: 15px; // Gap between image, details, and button
+
+      // Optional: checkbox (if you re-enable it in JS)
+      // .blog-item-checkbox {
+      //   margin-top: 5px; // Align with text better
+      //   flex-shrink: 0;
+      // }
+
+      .blog-item-image-manageBlog {
+        width: 120px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+
+      .blog-item-details-manageBlog {
+        flex-grow: 1; // Allow details to take up available space
+        display: flex;
+        flex-direction: column;
+        gap: 5px; // Space between title, author, meta
+
+        .blog-item-title-manageBlog {
+          margin: 0;
+          font-size: 1.15rem;
+          font-weight: 600;
+          color: $text-dark;
+        }
+
+        .blog-item-author-manageBlog {
+          font-size: 0.85rem;
+          color: darken($text-dark, 25%);
+          margin: 0;
+        }
+
+        .blog-item-meta-manageBlog {
+          display: flex;
+          flex-wrap: wrap; // Allow meta items to wrap on smaller screens
+          gap: 15px; // Space between meta items (Comments, Likes, Views)
+          font-size: 0.8rem;
+          color: darken($text-dark, 35%);
+
+          span {
+            // Individual styling for meta items if needed
+          }
+        }
+      }
+
+      .edit-blog-btn-manageBlog {
+        margin-left: auto; // Pushes button to the far right
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        align-self: center; // Vertically center button
+        background-color: lighten($button-bg-color, 15%);
+        &:hover {
+          background-color: $button-bg-color;
+        }
+      }
+    }
+
+    // If you have an "Add New" button at the very bottom of the recent-blog section
+    // > .add-new {
+    //   display: block;
+    //   width: fit-content;
+    //   margin: 25px auto 0 auto;
+    // }
+  }
+}
+
+// --- Responsive Adjustments ---
+
+// Medium devices (tablets, < 992px)
+@media (max-width: 991.98px) {
+  .main-content-manageBlog {
+    padding: 20px;
+
+    h2 { font-size: 1.6rem; }
+
+    .stats {
+      gap: 15px;
+      .stat {
+        padding: 15px;
+        p { font-size: 1.6rem; }
+      }
+    }
+
+    .recent-blog {
+      padding: 20px;
+      .recent-blog-header h4 { font-size: 1.3rem; }
+
+      .blog-item-manageBlog {
+        gap: 12px;
+        .blog-item-image-manageBlog {
+          width: 100px;
+          height: 75px;
+        }
+        .blog-item-details-manageBlog {
+          .blog-item-title-manageBlog { font-size: 1.1rem; }
+          .blog-item-author-manageBlog { font-size: 0.8rem; }
+          .blog-item-meta-manageBlog {
+            gap: 10px;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, < 768px)
+@media (max-width: 767.98px) {
+  .dashboard-manageBlog {
+    flex-direction: column;
+    // Sidebar would need styles for width: 100%, height: auto, or toggle display
+  }
+
+  .main-content-manageBlog {
+    padding: 15px;
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      flex-direction: column;
+      gap: 15px;
+      .stat p { font-size: 1.5rem; }
+    }
+
+    .recent-blog {
+      padding: 15px;
+      .recent-blog-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        h4 { text-align: center; }
+        .add-new { width: 100%; padding: 10px; }
+      }
+
+      .blog-list-manageBlog {
+        gap: 15px;
+      }
+
+      .blog-item-manageBlog {
+        flex-direction: column; // Stack image, details, button
+        align-items: stretch; // Make children take full width
+        padding: 12px;
+
+        .blog-item-image-manageBlog {
+          width: 100%; // Full width image
+          height: 150px; // Adjust height as needed for aspect ratio
+          margin-bottom: 10px;
+        }
+
+        .blog-item-details-manageBlog {
+          margin-bottom: 10px; // Space before button
+          .blog-item-meta-manageBlog {
+            justify-content: space-around; // Distribute meta items
+          }
+        }
+
+        .edit-blog-btn-manageBlog {
+          margin-left: 0; // Reset margin
+          width: 100%;
+          padding: 10px;
+          align-self: auto;
+        }
+      }
+    }
+  }
+}
+
+// Extra small devices (portrait phones, < 576px)
+@media (max-width: 575.98px) {
+  .main-content-manageBlog {
+    padding: 10px;
+
+    h2 { font-size: 1.3rem; }
+
+    .stats .stat {
+      padding: 12px;
+      h4 { font-size: 0.9rem; }
+      p { font-size: 1.4rem; }
+    }
+
+    .recent-blog {
+      padding: 10px;
+      .recent-blog-header h4 { font-size: 1.2rem; }
+
+      .blog-item-manageBlog {
+        .blog-item-image-manageBlog {
+          height: 120px;
+        }
+        .blog-item-details-manageBlog {
+          .blog-item-title-manageBlog { font-size: 1rem; font-weight: bold; }
+          .blog-item-author-manageBlog { font-size: 0.75rem; }
+          .blog-item-meta-manageBlog {
+            font-size: 0.7rem;
+            gap: 8px;
+          }
+        }
+        .edit-blog-btn-manageBlog {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
+      }
+      .recent-blog-header .add-new {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+
+// --- Modal Styles ---
+.modal-overlay-manageBlog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.modal-content-manageBlog {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 550px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: $text-dark;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 575.98px) {
+    padding: 20px;
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.modal-close-manageBlog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 5px;
+  cursor: pointer;
+  color: #aaa;
+  &:hover {
+    color: $text-dark;
+  }
+}
+
+// Ensure this class name matches the form in your modal JSX
+// If your form has className="add-blog-form-manageBlog" use that instead.
+// Based on your previous JS, it was "add-blog-form"
+.add-blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group-manageBlog { // This class name matches your JS
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: darken($text-dark, 10%);
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  input[type="url"], // Added for imageUrl input
+  textarea {
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: $button-bg-color; // Use a theme color for focus
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(109, 110, 113, 0.2); // Example focus shadow
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+}
+
+.form-actions-manageBlog { // This class name matches your JS
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .submit-btn-manageBlog { // Matches your JS
+    background-color: #28a745; // Green for submit
+    color: white;
+    &:hover {
+      background-color: darken(#28a745, 8%);
+    }
+  }
+
+  .cancel-btn-manageBlog { // Matches your JS
+    background-color: #6c757d; // Grey for cancel
+    color: white;
+    &:hover {
+      background-color: darken(#6c757d, 8%);
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column-reverse;
+    gap: 10px;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.error-message-manageBlog { // This class name matches your JS
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin-bottom: 15px; // Ensure space below if it's not the last element before actions
+  text-align: left;
+}

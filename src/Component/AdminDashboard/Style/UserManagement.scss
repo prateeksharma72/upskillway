@@ -1,0 +1,454 @@
+// src/Component/AdminDashboard/UserManagement.scss
+
+// --- Variables (Mostly from your original, with minor additions/tweaks) ---
+// Colors
+$primary-color: #007bff; // A common, vibrant blue
+$primary-color-dark: darken($primary-color, 10%);
+$primary-color-light: lighten($primary-color, 45%); // For subtle backgrounds/hovers
+
+$secondary-color: #6c757d; // For secondary text or elements
+
+$content-bg: #f8f9fa; // Light gray page background
+$card-bg: #ffffff;    // Background for tables, info blocks
+$card-border-color: #e9ecef;
+$card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.075); // Softer, more modern shadow
+
+$text-primary: #212529;   // Dark text for high readability
+$text-secondary: #495057; // Slightly lighter for secondary info
+$text-muted: #6c757d;    // For less important text
+
+$border-color: #dee2e6;        // General borders
+$table-border-color: #e9ecef;  // Lighter for table cells
+
+$table-header-bg: #f1f3f5; // Light, neutral table header
+$table-row-hover-bg: $primary-color-light;
+
+$success-color: #28a745;
+$success-bg-light: lighten($success-color, 40%);
+$success-text-dark: darken($success-color, 10%);
+
+$warning-color: #ffc107; // For 'not verified' that isn't strictly an error
+$warning-bg-light: lighten($warning-color, 35%);
+$warning-text-dark: darken($warning-color, 10%);
+
+$error-color: #dc3545;
+$error-bg-light: lighten($error-color, 35%);
+$error-text-dark: darken($error-color, 10%);
+
+// Status colors
+$active-color: #28a745;
+$active-bg-light: lighten($active-color, 45%);
+$active-border: lighten($active-color, 20%);
+
+$inactive-color: #dc3545;
+$inactive-bg-light: lighten($inactive-color, 45%);
+$inactive-border: lighten($inactive-color, 20%);
+
+// Typography
+$font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-size-base: 1rem;     // 16px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-lg: 1.25rem;    // 20px
+$font-weight-normal: 400;
+$font-weight-bold: 600; // Slightly less heavy than 700 for a cleaner look
+
+// Layout & Spacing
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem;  // 8px
+$spacing-md: 1rem;    // 16px
+$spacing-lg: 1.5rem;  // 24px
+$spacing-xl: 2rem;    // 32px
+
+// Borders & Radius
+$border-radius-base: 0.3rem; // Consistent border radius
+$border-radius-sm: 0.2rem;
+$border-radius-lg: 0.5rem;
+
+// Breakpoints
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+
+// Transitions
+$transition-base: all 0.2s ease-in-out;
+
+// --- User Management Page Styles ---
+.user-management-page {
+  font-family: $font-family-sans;
+  padding: $spacing-lg $spacing-xl; // More horizontal padding for wider screens
+  background-color: $content-bg;
+  min-height: 100%; // Ensure it fills the content area
+
+  @media (max-width: $bp-md) {
+    padding: $spacing-md $spacing-lg;
+  }
+  @media (max-width: $bp-sm) {
+    padding: $spacing-md;
+  }
+
+  h2 {
+    font-size: 1.75rem; // Slightly larger title
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border-color;
+  }
+
+  // Status Messages (Loading, No Users)
+  .status-message, // Generic class for simple text status
+  p:empty + p, // Targets "No users found" or "Loading..." if they are plain <p>
+  & > p:first-child:last-child { // Targets if the only content is a single <p> for loading/empty
+    text-align: center;
+    color: $text-muted;
+    font-size: 1.1rem;
+    padding: $spacing-xl $spacing-lg;
+    background-color: $card-bg;
+    border-radius: $border-radius-base;
+    box-shadow: $card-shadow;
+    border: 1px solid $card-border-color;
+  }
+  
+  // Error Message Styling (from your code, slightly tweaked)
+  .error-message {
+    background-color: $error-bg-light;
+    color: $error-text-dark;
+    padding: $spacing-md;
+    border-radius: $border-radius-base;
+    border: 1px solid lighten($error-color, 20%);
+    border-left: 4px solid $error-color;
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-sm;
+    display: flex;
+    align-items: center;
+  }
+
+  // Table Container & Styling
+  .table-responsive {
+    background-color: $card-bg;
+    border-radius: $border-radius-lg; // Larger radius for the container
+    box-shadow: $card-shadow;
+    border: 1px solid $card-border-color;
+    overflow: hidden; // Ensures children (table) respect the border-radius
+    margin-bottom: $spacing-lg;
+    overflow-x: auto; 
+
+    .user-table {
+      width: 100%;
+      min-width: 900px; // Increased min-width to accommodate the new Status column
+      border-collapse: collapse;
+      font-size: $font-size-base; // Base font size for better readability
+
+      th, td {
+        padding: $spacing-md; // Consistent padding
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: 1px solid $table-border-color;
+        white-space: nowrap; // Prevent wrapping by default, scroll will handle
+      }
+
+      th {
+        background-color: $table-header-bg;
+        color: $text-secondary;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-sm; // Slightly smaller for header
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom-width: 2px; // More prominent header bottom border
+        border-bottom-color: $border-color;
+      }
+
+      tbody tr {
+        transition: background-color $transition-base;
+        &:hover {
+          background-color: $table-row-hover-bg;
+        }
+        &:last-child td {
+          border-bottom: none;
+        }
+      }
+
+      td {
+        color: $text-primary;
+        font-size: $font-size-sm;
+
+        &.user-name { // If you add a class to name td
+          font-weight: $font-weight-bold;
+          color: $primary-color;
+        }
+        
+        // Styling for Verification Badges
+        .verification-group {
+          display: flex;
+          flex-direction: column; // Stack email and phone verification
+          gap: $spacing-xs;
+          align-items: flex-start; // Align badges to the start
+        }
+
+        .verification-badge {
+          display: inline-flex;
+          align-items: center;
+          font-size: 0.75rem; // Smaller font for badges
+          padding: $spacing-xs $spacing-sm;
+          border-radius: $border-radius-sm; // Smaller radius for badges
+          font-weight: $font-weight-bold;
+          line-height: 1; // Ensure consistent height
+
+          &.verified {
+            background-color: $success-bg-light;
+            color: $success-text-dark;
+            border: 1px solid lighten($success-color, 25%);
+          }
+          &.not-verified {
+            background-color: $warning-bg-light;
+            color: $warning-text-dark;
+            border: 1px solid lighten($warning-color, 15%);
+          }
+        }
+
+        // Status Dropdown Styling
+        .status-dropdown {
+          position: relative;
+          display: inline-block;
+          
+          .status-loading {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: $primary-color-light;
+            color: $primary-color;
+            font-size: 0.7rem;
+            padding: $spacing-xs;
+            border-radius: $border-radius-sm;
+            text-align: center;
+            margin-top: 2px;
+            z-index: 5;
+            border: 1px solid $primary-color-light;
+          }
+          
+          .status-select {
+            appearance: none; // Remove default dropdown arrow
+            background-color: transparent;
+            border: 1px solid $border-color;
+            border-radius: $border-radius-sm;
+            padding: $spacing-xs $spacing-md;
+            font-size: $font-size-sm;
+            font-weight: 500;
+            cursor: pointer;
+            transition: $transition-base;
+            min-width: 90px;
+            position: relative;
+            
+            // Custom dropdown arrow
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right $spacing-xs center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: $spacing-lg; // Make room for the arrow
+
+            &:hover {
+              border-color: $primary-color;
+              box-shadow: 0 0 0 1px rgba($primary-color, 0.1);
+            }
+
+            &:focus {
+              outline: none;
+              border-color: $primary-color;
+              box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+            }
+
+            &:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+              background-color: $table-header-bg;
+              
+              &:hover {
+                border-color: $border-color;
+                box-shadow: none;
+              }
+            }
+
+            // Active status styling
+            &.active {
+              color: $active-color;
+              background-color: $active-bg-light;
+              border-color: $active-border;
+              
+              &:hover {
+                border-color: $active-color;
+                background-color: lighten($active-bg-light, 2%);
+              }
+            }
+
+            // Inactive status styling
+            &.inactive {
+              color: $inactive-color;
+              background-color: $inactive-bg-light;
+              border-color: $inactive-border;
+              
+              &:hover {
+                border-color: $inactive-color;
+                background-color: lighten($inactive-bg-light, 2%);
+              }
+            }
+
+            // Option styling (limited browser support, but good practice)
+            option {
+              background-color: $card-bg;
+              color: $text-primary;
+              
+              &[value="active"] {
+                color: $active-color;
+              }
+              
+              &[value="inactive"] {
+                color: $inactive-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Pagination Styling
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: $spacing-sm;
+    gap: $spacing-sm;
+
+    button, .page-number { // Assuming .page-number for span if you add it
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px; // Consistent size
+      height: 38px;
+      padding: 0 $spacing-sm;
+      border: 1px solid $border-color;
+      background-color: $card-bg;
+      color: $text-secondary;
+      border-radius: $border-radius-base;
+      font-size: $font-size-sm;
+      font-weight: 500; // Use 500 for buttons
+      transition: $transition-base;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+      &:hover:not(:disabled):not(.current-page) {
+        border-color: $primary-color;
+        color: $primary-color;
+        background-color: lighten($primary-color, 48%);
+        box-shadow: 0 2px 4px rgba($primary-color, 0.1);
+      }
+
+      &:active:not(:disabled):not(.current-page) {
+        transform: translateY(1px);
+        box-shadow: none;
+      }
+    }
+
+    button:disabled {
+      color: $text-muted;
+      cursor: not-allowed;
+      background-color: $table-header-bg; // Consistent with table header
+      box-shadow: none;
+    }
+
+    // For the current page number span (if you implement it)
+    span, .current-page { // Target the span for '1'
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      padding: 0 $spacing-sm;
+      border-radius: $border-radius-base;
+      font-size: $font-size-sm;
+      color: $primary-color;
+      background-color: $primary-color-light;
+      border: 1px solid $primary-color-light;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+// --- Responsive Adjustments ---
+@media (max-width: $bp-lg) {
+  .user-management-page .table-responsive .user-table {
+    min-width: 800px; // Adjust min-width for larger tablets
+  }
+}
+
+@media (max-width: $bp-md) { // Medium devices (tablets)
+  .user-management-page {
+    h2 { font-size: 1.6rem; }
+    .table-responsive .user-table {
+      min-width: 700px; // Further reduce for smaller tablets
+      th, td { padding: $spacing-sm calc(#{$spacing-sm} + #{$spacing-xs}); }
+      
+      td .status-dropdown .status-select {
+        min-width: 80px;
+        font-size: 0.8rem;
+        padding: $spacing-xs calc(#{$spacing-sm} + #{$spacing-xs});
+        padding-right: $spacing-md;
+      }
+    }
+    .pagination {
+      button, span, .current-page { min-width: 36px; height: 36px; font-size: $font-size-sm - 0.05rem; }
+    }
+  }
+}
+
+@media (max-width: $bp-sm) { // Small devices (phones)
+  .user-management-page {
+    padding: $spacing-md $spacing-sm; // Less horizontal padding
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: $spacing-md;
+      padding-bottom: $spacing-sm;
+    }
+
+    .table-responsive .user-table {
+      font-size: $font-size-sm - 0.1rem;
+      min-width: 100%; // Allow table to shrink fully, horizontal scroll takes over
+      th, td {
+        padding: $spacing-sm;
+        white-space: normal; // Allow text wrapping on mobile
+        &:first-child { padding-left: $spacing-md; } // More padding for first cell
+        &:last-child { padding-right: $spacing-md; } // More padding for last cell
+      }
+      
+      td {
+        .verification-group {
+          .verification-badge {
+            font-size: 0.7rem;
+            padding: $spacing-xs calc(#{$spacing-xs} + 1px);
+          }
+        }
+        
+        .status-dropdown .status-select {
+          min-width: 75px;
+          font-size: 0.75rem;
+          padding: $spacing-xs;
+          padding-right: $spacing-md;
+        }
+      }
+    }
+
+    .pagination {
+      gap: $spacing-xs;
+      flex-wrap: wrap; // Allow pagination to wrap
+      justify-content: center;
+      button, span, .current-page {
+        min-width: 34px; height: 34px;
+        font-size: $font-size-sm - 0.125rem;
+      }
+    }
+  }
+}

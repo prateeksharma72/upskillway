@@ -1,0 +1,328 @@
+// src/Component/dashboard/Style/Withdrawal.scss
+// *** UPDATED FILE WITH BLACK BACKGROUND AND STATUS COLORS ***
+
+.withdrawal-page-container {
+  min-height: 100vh;
+  background: #000000;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+  padding: 20px;
+  color: #e0e0e0; // Default text color
+}
+
+.withdrawal-content-area {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.withdrawal-central-hub {
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.withdrawal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+}
+
+.withdrawal-balance-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 
+    0 10px 20px rgba(76, 175, 80, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+
+  .withdrawal-balance-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .withdrawal-balance-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+.withdrawal-form-wrapper {
+  margin-bottom: 40px;
+}
+
+.withdrawal-form {
+  .form-group {
+    margin-bottom: 25px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 
+          0 0 20px rgba(102, 126, 234, 0.4),
+          0 0 0 1px rgba(102, 126, 234, 0.5);
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset;
+        -webkit-text-fill-color: #ffffff;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+  }
+}
+
+.withdrawal-action-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.withdrawal-submit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 30px rgba(102, 126, 234, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 
+      0 15px 40px rgba(102, 126, 234, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.withdrawal-activity-indicator {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.withdrawal-history-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+}
+
+.withdrawal-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.withdrawal-history-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.withdrawal-history-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .withdrawal-amount {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .withdrawal-date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .withdrawal-reason {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+  }
+}
+
+.withdrawal-status {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  text-transform: capitalize;
+  border: 1px solid;
+
+  // --- ADDED STATUS COLORS ---
+  &.status-pending { color: #f0ad4e; border-color: rgba(240, 173, 78, 0.5); }
+  &.status-approved { color: #5cb85c; border-color: rgba(92, 184, 92, 0.5); }
+  &.status-rejected { color: #d9534f; border-color: rgba(217, 83, 79, 0.5); }
+  // --- END ADDED STATUS COLORS ---
+}
+
+.withdrawal-no-history {
+  text-align: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .withdrawal-page-container {
+    padding: 10px;
+  }
+
+  .withdrawal-central-hub {
+    padding: 20px;
+  }
+
+  .withdrawal-title {
+    font-size: 2rem;
+  }
+
+  .withdrawal-balance-display {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+
+    .withdrawal-balance-value {
+      font-size: 1.5rem;
+    }
+  }
+
+  .withdrawal-history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .withdrawal-submit-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .withdrawal-form {
+    .form-group {
+      input, textarea {
+        font-size: 16px; // Prevents zoom on iOS
+      }
+    }
+  }
+}
+
+// Dark scrollbar for webkit browsers
+.withdrawal-history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.withdrawal-history-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.withdrawal-history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.withdrawal-history-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

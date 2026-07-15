@@ -1,0 +1,347 @@
+// ========================================================================
+// 1. CONFIGURATION & VARIABLES
+// ========================================================================
+
+// --- Enhanced Breakpoints for Full Responsiveness ---
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1920px;
+
+// --- Colors ---
+$dashboard-bg: #F3F4F6; // A lighter, more modern background
+$card-bg: #ffffff;
+$header-bg: #4c38f1;
+$text-primary: #111827; // Darker text for better contrast
+$text-secondary: #6B7280;
+$accent-green: #10B981;
+$accent-blue: #3B82F6;
+$error-red: #e53935;
+$warning-yellow: #F59E0B;
+$border-color: #E5E7EB;
+$input-border: #D1D5DB;
+$input-focus: #4c38f1;
+$success-green: #059669;
+$overview-bg: #F8FAFC;
+
+// --- Sidebar ---
+// These variables are used by the main content area for spacing
+$sidebar-width-mobile: 240px;
+$sidebar-width-tablet: 260px;
+$sidebar-width-desktop: 280px;
+$sidebar-width-large: 300px;
+$sidebar-active-bg: #334155; // For mobile toggle button
+
+// --- Layout & Typography ---
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$transition-speed: 0.3s;
+$container-max-width: 1800px;
+
+// ========================================================================
+// 2. MIXINS
+// ========================================================================
+@mixin mobile-only {
+  @media (max-width: #{$breakpoint-md - 1px}) { @content; }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: $breakpoint-md) { @content; }
+}
+
+@mixin desktop-and-up {
+  @media (min-width: $breakpoint-lg) { @content; }
+}
+
+@mixin large-desktop-and-up {
+  @media (min-width: $breakpoint-xl) { @content; }
+}
+
+@mixin card-shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+@mixin hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// ========================================================================
+// 3. MAIN LAYOUT & WRAPPER
+// ========================================================================
+
+.admin-dashboard-layout {
+  display: flex;
+  font-family: $font-family;
+  min-height: 100vh;
+  background-color: $dashboard-bg;
+  color: $text-primary;
+  position: relative;
+
+  &.mobile-sidebar-open {
+    overflow: hidden;
+  }
+}
+
+// ========================================================================
+// 4. MOBILE SIDEBAR TOGGLE & OVERLAY
+// ========================================================================
+
+.admin-dashboard__sidebar-toggle {
+  display: none;
+}
+
+.admin-dashboard__sidebar-overlay {
+  display: none;
+}
+
+// --- Sidebar Responsive Behavior for Mobile ---
+@include mobile-only {
+  .admin-dashboard__sidebar-toggle {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1005;
+    background: $sidebar-active-bg;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: lighten($sidebar-active-bg, 10%);
+    }
+  }
+
+  .admin-dashboard-layout.mobile-sidebar-open .admin-dashboard__sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+}
+
+// ========================================================================
+// 5. MAIN CONTENT AREA
+// ========================================================================
+
+.admin-dashboard-main-content {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 0;
+  transition: margin-left $transition-speed ease-in-out;
+  
+  // Mobile padding (default state)
+  padding: 1.5rem;
+  
+  // Tablet and up
+  @include tablet-and-up {
+    margin-left: $sidebar-width-tablet;
+    padding: 2rem;
+  }
+  
+  // Desktop adjustments
+  @include desktop-and-up {
+    margin-left: $sidebar-width-desktop;
+    padding: 2.5rem 3rem;
+  }
+  
+  // Large desktop adjustments
+  @include large-desktop-and-up {
+    margin-left: $sidebar-width-large;
+    padding: 3rem 4rem;
+  }
+}
+
+// ========================================================================
+// 6. HEADER STYLES
+// ========================================================================
+
+.admin-dashboard-content-header {
+  background-color: $header-bg;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(76, 56, 241, 0.2);
+  
+  @include tablet-and-up {
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .header-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+    
+    @include tablet-and-up { 
+      font-size: 2.2rem; 
+    }
+  }
+  
+  .header-subtitle {
+    color: rgba(#ffffff, 0.9);
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    
+    @include large-desktop-and-up {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .header-stats {
+    color: rgba(#ffffff, 0.9);
+    font-size: 1rem;
+    
+    @include large-desktop-and-up {
+      font-size: 1.1rem;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .error-detail {
+      color: #ffcdd2;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}
+
+// ========================================================================
+// 7. PAGE CONTENT WRAPPER (FOR OUTLET)
+// ========================================================================
+
+.page-content-wrapper {
+  margin-top: 2rem;
+  
+  @include tablet-and-up {
+    margin-top: 2.5rem;
+  }
+  
+  // REMOVED: fadeInUp animation to prevent conflicts with child animations
+  // This was causing duplication issues with the lookup-card animation
+}
+
+// ========================================================================
+// 8. RESPONSIVE UTILITIES
+// ========================================================================
+
+// Hide elements on mobile
+@include mobile-only {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+// Hide elements on tablet and up
+@include tablet-and-up {
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+// ========================================================================
+// 9. ANIMATIONS & TRANSITIONS
+// ========================================================================
+
+// Loading animations
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading-text {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// REMOVED: Fade in animation for content to prevent duplication
+// The individual components (like lookup-card) will handle their own animations
+// @keyframes fadeInUp {
+//   from {
+//     opacity: 0;
+//     transform: translateY(30px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// .page-content-wrapper {
+//   animation: fadeInUp 0.6s ease-out;
+// }
+
+// ========================================================================
+// 10. PRINT STYLES
+// ========================================================================
+
+@media print {
+  .admin-dashboard__sidebar-toggle {
+    display: none !important;
+  }
+  
+  .admin-dashboard-layout {
+    background: white !important;
+  }
+  
+  .admin-dashboard-main-content {
+    margin-left: 0 !important;
+    padding: 1rem !important;
+  }
+  
+  .admin-dashboard-content-header {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+// ========================================================================
+// 11. ACCESSIBILITY IMPROVEMENTS
+// ========================================================================
+
+// Focus styles for better accessibility
+.admin-dashboard__sidebar-toggle:focus {
+  outline: 2px solid $input-focus;
+  outline-offset: 2px;
+}
+
+// Reduced motion for users who prefer it
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .admin-dashboard-content-header {
+    border: 2px solid currentColor;
+  }
+}

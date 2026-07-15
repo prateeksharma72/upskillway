@@ -1,0 +1,258 @@
+/* Learn Page Layout */
+.learn-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Use 100% instead of 100vw to avoid horizontal scroll issues */
+    background: #ECF5FE;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Layout with Sidebar and Main Content */
+.learn-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1400px; /* Optional: Max width for very large screens */
+    margin: 0 auto; /* Center the layout */
+    padding: 2rem 1.5rem; // Add some padding
+    gap: 2rem; // Space between sidebar and main content
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+}
+
+/* No-sidebar variant: center content and expand width */
+.learn-layout.no-sidebar {
+    display: block;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px; /* Slightly wider for better readability */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    background: rgba(34, 34, 34, 0.9);
+    padding: 25px;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out, opacity 0.3s;
+    margin-top: 50px;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        max-width: 600px; /* Max width when stacked */
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+.sidebar-title { // Target class directly
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: clamp(1.3rem, 4vw, 1.5rem); // Responsive font size
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // Default for LTR
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s, color 0.3s;
+    font-weight: bold;
+
+    @media (max-width: 1024px) {
+        justify-content: center; // Center links when sidebar is full width
+    }
+}
+
+.sidebar a:hover {
+    background: linear-gradient(135deg, #ffcc00, #ffdd44);
+    color: #222;
+    transform: translateX(10px);
+    box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+
+    @media (max-width: 1024px) {
+        transform: translateX(0) scale(1.02); // Adjust hover for centered links
+    }
+}
+
+.sidebar a.active { // Style for active NavLink
+    background: linear-gradient(135deg, #ffdd44, #ffcc00); // Slightly different from hover
+    color: #111;
+    transform: translateX(5px) scale(1.01);
+    box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+
+    @media (max-width: 1024px) {
+        transform: translateX(0) scale(1.03);
+    }
+}
+
+/* Main Content */
+.main-content-learn {
+    flex-grow: 1;
+    padding: clamp(1.5rem, 4vw, 2.5rem); // Responsive padding
+    margin: 40px auto; // centered without sidebar
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%; // Ensure it takes available width
+    min-width: 0; // Allow shrinking if necessary in flex context
+}
+
+/* Learn Section */
+.learn-section {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto; // Keep centered
+}
+
+.learn-hero {
+    background: linear-gradient(135deg, #ffcc00, #ffdd44);
+    padding: clamp(1.5rem, 5vw, 2rem);
+    border-radius: 15px;
+    margin-bottom: 2.5rem; // Increased margin
+
+    h1.main-heading-learn { // Specific to h1 in hero
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        font-weight: bold;
+        color: #222; // Fallback
+        // For gradient text:
+        background: linear-gradient(135deg, #333333, #000000); // Example dark gradient for text fill
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.75rem;
+    }
+
+    h3 {
+        color: #333; // Darker color for better contrast on yellow
+        font-size: clamp(1rem, 3.5vw, 1.25rem);
+        line-height: 1.5;
+    }
+}
+
+.learn-section > h2 { // Target the "What You'll Learn" h2
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.learn-title { margin: 2rem 0 1rem; font-weight: 800; letter-spacing: -0.02em; }
+
+/* Learning Grid */
+.learn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // More responsive
+    gap: 25px;
+    margin-top: 25px;
+
+    @media (max-width: 600px) { // Single column on small mobile
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Clickable card variant */
+.learn-grid.learn-grid-clickable { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.learn-card-link {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    padding: 24px 20px 26px;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+    transition: transform .2s ease, box-shadow .2s ease;
+
+    .card-index {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #0f172a;
+        background: #fde7f1;
+    }
+
+    .card-icon { font-size: 28px; color: #6ea4ff; margin: 8px 0 8px; }
+    h3 { margin: 6px 0; font-size: 1.05rem; color: #111; }
+    p { color: #555; font-size: .95rem; min-height: 40px; }
+    .card-cta { display: inline-block; margin-top: 10px; color: #2563eb; font-weight: 600; }
+
+    &:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(0,0,0,0.1); }
+}
+
+/* Learning Cards */
+.learn-card {
+    background: rgba(255, 255, 255, 0.95); // Slightly less transparent
+    color: #333; // Default text color
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Adjusted shadow
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 220px; // Ensure some consistent height
+
+    svg { // Directly style SVG if Fa icons are used
+        font-size: 50px; // Slightly smaller
+        color: #ffb700; // Darker yellow for icons
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: clamp(1.1rem, 4vw, 1.25rem);
+        margin-bottom: 0.75rem;
+        color: #222;
+    }
+
+    p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        line-height: 1.5;
+        color: #555;
+    }
+}
+
+.learn-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.learnpara {
+    color: #333;
+    margin-top: 3rem; // Adjusted margin
+    font-size: clamp(1.2rem, 5vw, 1.8rem); // Responsive font size
+    font-weight: 500;
+    line-height: 1.6;
+}

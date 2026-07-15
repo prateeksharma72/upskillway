@@ -1,0 +1,152 @@
+/* Main Content */
+/* New About page styles matching modern white theme */
+.about { padding: 6.5rem 1.5rem 2.5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.accent { color: #8bbf6a; }
+
+.about-hero { text-align: left; margin-bottom: 28px; }
+.about-title { font-size: 2.8rem; font-weight: 800; color: #111; margin: 0 0 12px 0; }
+.about-intro { color: #4b4f54; line-height: 1.8; max-width: 980px; margin: 10px 0; }
+.btn-learn { display: inline-block; margin-top: 14px; padding: 10px 16px; background: #111; color: #fff; text-decoration: none; border-radius: 8px; }
+
+/* Why section */
+.why { margin-top: 26px; }
+.why-title { font-size: 2.2rem; margin-bottom: 16px; }
+.why-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+.why-item { display: grid; grid-template-columns: 60px 1fr 180px; align-items: center; gap: 12px; background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+.why-item .num { font-size: 2rem; font-weight: 800; color: #8bbf6a; }
+.why-item .text h3 { font-size: 1.05rem; color: #111; }
+.why-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 10px; }
+
+/* CTA */
+.about-cta { text-align: center; padding: 40px 0 10px 0; }
+.about-cta h2 { font-size: 1.8rem; font-weight: 700; color: #111; }
+
+/* About Section */
+/* Legacy rules kept below for compatibility where referenced elsewhere */
+.main-content-about { display: contents; }
+.about-section { display: none; }
+
+.about-section h1 {
+    font-size: 36px;
+    color: black;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.about-section p {
+    font-size: 20px;
+    color: var(--black);
+    line-height: 1.8;
+    margin: 1rem auto;
+    max-width: 85%;
+}
+
+/* About Image */
+.About-img {
+    align-items: center;
+    max-width: 60%;
+    height: auto;
+    
+    margin: 30px 10px 0 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.business-trends {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.About2-img {
+    height: 300px;
+    display: block;
+    
+    border-radius: 20px;
+    
+}
+
+.about-content{
+   display: flex; 
+}
+
+.About3-img{
+    height: 180px;
+    display: block;
+    margin: 0 0 0 10px;
+    border-radius: 20px;
+}
+.about-para{
+    display: flex;
+    flex-direction: column;
+}
+/* Why Choose Us Section */
+.about-h2 { display: none; }
+
+
+
+.aboutChoose {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 100%;
+}
+
+.about-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.about-card .icon {
+    font-size: 40px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.about-card p {
+    font-size: 18px;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* Join Us Section */
+.join-us {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    margin: 20px auto;
+    padding: 10px;
+    color: #2c3e50;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.icon{
+    height: 80px;
+    width: 300px;
+    
+}
+/* Responsive Design */
+@media (max-width: 992px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why-item { grid-template-columns: 50px 1fr 160px; }
+}
+@media (max-width: 640px) {
+  .about-title { font-size: 2.2rem; }
+  .why-item { grid-template-columns: 40px 1fr; }
+  .why-item img { grid-column: 1/-1; height: 140px; }
+  .about-cta h2 { font-size: 1.4rem; }
+}

@@ -1,0 +1,236 @@
+/* Root Variables */
+:root {
+    --primary-color: #262259;
+    
+    --accent-color: white;
+    --gold: #ffd700;
+    --white: #ffffff;
+}
+
+/* Prevent content from being hidden behind header */
+body {
+    /* Use a fixed pixel value or calc() for more reliability than vh */
+    /* Adjust 70px based on your actual desktop header height */
+    
+    font-family: "Poppins", sans-serif; /* Apply globally if desired */
+}
+
+/* Header */
+.header {
+    display: grid;
+    grid-template-columns: auto 1fr auto; // logo | center nav | login
+    align-items: center;
+    padding: 0 2rem; /* Adjusted padding for better height control */
+    background-color: #ffffff; // White like screenshot
+    width: 100%;
+    height: 70px; // Use fixed height for consistency with body padding
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box; // Include padding in width/height calculation
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; // Added gap for spacing instead of margin-right on image
+}
+
+/* Logo Image */
+.logo img {
+    height: 50px;
+    width: 95px;
+    /* margin-right: 10px; */ // Replaced by gap on .logo
+    border-radius: 30px;
+    display: block; // Prevents potential bottom space
+}
+
+/* Logo Text */
+.logo span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--white);
+    white-space: nowrap; // Prevent text wrapping on slightly smaller screens
+}
+
+/* Tag-line - Kept as is per request, but recommend refactoring */
+.Tag-line {
+    display: flex;
+    font-size: 0.4rem;
+    color: #D3D3D3;
+    margin-top: 55px; /* Highly specific, may break easily */
+    margin-left: 5px;
+    margin-right: -145px; /* Highly specific, may break easily */
+}
+
+/* Hamburger Menu Icon */
+.hamburger {
+    display: none; // Hidden on desktop
+    cursor: pointer;
+    padding: 10px; // Clickable area
+    background: none;
+    border: none;
+    z-index: 1001; // Ensure it's above nav links if they overlap somehow
+
+    span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--white);
+        margin: 5px 0;
+        transition: all 0.3s ease-in-out;
+        border-radius: 2px; // Slight rounding
+    }
+
+    // Active state (X)
+    &.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    &.active span:nth-child(2) {
+        opacity: 0;
+    }
+    &.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+
+/* Navigation Menu */
+.nav-center { display: flex; justify-content: center; }
+.nav-links {
+    display: flex; // Visible on desktop
+    list-style: none;
+    padding: 0;
+    margin: 0; // Reset default ul margin
+    gap: 28px;
+    /* justify-content: flex-end; */ // Removed as space-between on header handles this
+    flex-wrap: wrap; // Keep wrapping for narrower desktop views
+    align-items: center; // Vertically align items if they wrap
+}
+
+/* Navigation Links */
+.nav-link {
+    text-decoration: none;
+    color: #4b4f54;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 5px 0; // Add slight vertical padding
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover { color: #0b232a; transform: none; }
+
+/* dashed vertical divider in center */
+.nav-divider {
+    width: 1px;
+    height: 26px;
+    border-left: 2px dashed #76b7ff; // light blue dashed per screenshot
+    margin: 0 4px;
+}
+
+/* right login CTA */
+.nav-cta { display: none; }
+@media (min-width: 1025px) {
+    .nav-cta { display: block; justify-self: end; }
+    .nav-link-login { color: #4b4f54; font-weight: 700; }
+}
+
+/* hide the duplicate login inside nav on desktop */
+.nav-login-mobile { display: none; }
+@media (max-width: 1024px) {
+    .nav-cta { display: none; }
+    .nav-login-mobile { display: block; }
+}
+
+/* === Mobile & Tablet Responsive Design === */
+@media (max-width: 1024px) {
+    .header {
+        grid-template-columns: 1fr auto 1fr;
+        height: auto; // Allow height to grow
+        padding: 0.8rem 1rem; // Adjust padding
+        align-items: center; // Center items horizontally
+        position: relative; // Needed for potential absolute positioning of children if required
+    }
+
+    .logo {
+        flex-direction: column; // Stack logo image and text
+        align-items: center;
+        text-align: center;
+        width: 100%; // Ensure logo container takes full width for centering
+        margin-bottom: 10px; // Add space below logo block
+    }
+
+    /* Adjust Tag-line for stacked layout */
+    .Tag-line {
+        font-size: 0.6rem;
+        margin: 5px 0 0 0; // Reset complex margins
+        text-align: center;
+        width: 100%; // Ensure it centers correctly
+    }
+
+    /* Hamburger visibility */
+    .hamburger {
+        display: block; // Show hamburger
+        position: absolute; // Position relative to header
+        top: 15px; // Adjust vertical position as needed
+        right: 1rem; // Position on the right
+    }
+
+    /* Navigation links container */
+    .nav-links {
+        display: none; // Hide nav links by default on mobile
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px; // Space between logo area and nav
+        background-color: #ffffff; // White background on mobile dropdown
+        padding: 1rem 0; // Padding top/bottom for the menu block
+        // position: absolute; // Optional: if you want it to overlay content
+        // top: 100%; // Position below the header container (if absolute)
+        // left: 0;
+        // z-index: 1000; // Ensure it's below hamburger but above content
+        // box-shadow: 0px 4px 10px rgba(0,0,0,0.1); // Optional shadow
+    }
+
+    /* Show nav links when menu is open */
+    .nav-links.open {
+        display: flex;
+    }
+
+    /* Individual links in mobile menu */
+    .nav-link {
+        font-size: 1.1rem; // Slightly larger tap target
+        padding: 10px 15px; // More padding for tapping
+        width: 100%; // Make link take full width
+        text-align: center; // Center text within link area
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06); // Optional separator
+
+        &:hover {
+           transform: none; // Disable scaling on mobile hover
+           background-color: rgba(0, 0, 0, 0.03); // Subtle hover feedback
+        }
+    }
+     .nav-links li:last-child .nav-link {
+       border-bottom: none; // Remove border from last item
+     }
+}
+
+// Optional: Further adjustments for very small screens
+@media (max-width: 480px) {
+    .header {
+        padding: 0.5rem 1rem; // Reduce padding more
+    }
+    .logo span {
+        font-size: 1rem; // Smaller logo text
+    }
+    .Tag-line {
+        font-size: 0.5rem; // Smaller tag line
+    }
+     .hamburger {
+        top: 12px; // Adjust hamburger position slightly if needed
+     }
+}

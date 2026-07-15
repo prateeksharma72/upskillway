@@ -1,0 +1,257 @@
+// Add this Sass variable definition at the top of your Blog.scss
+// or in a global variables file if you have one.
+$primary-color-value: #5848c2; // This is the fallback color from your var()
+
+/* Blog Page Layout */
+.blog-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #333;
+    background-color: #ECF5FE;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.blog-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: rgba(34, 34, 34, 0.9);
+    padding: 25px;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out, opacity 0.3s;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .sidebar-title {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        font-weight: bold;
+    }
+
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { margin-bottom: 15px; }
+
+    a {
+        text-decoration: none;
+        color: #fff;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: background 0.3s, transform 0.2s, color 0.3s;
+        font-weight: bold;
+
+        @media (max-width: 1024px) {
+            justify-content: center;
+        }
+    }
+
+    a:hover {
+        background: linear-gradient(135deg, #ffcc00, #ffdd44);
+        color: #222;
+        transform: translateX(10px);
+        box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+        @media (max-width: 1024px) {
+            transform: translateX(0) scale(1.02);
+        }
+    }
+
+    a.active, a.current-page {
+        background: linear-gradient(135deg, #ffdd44, #ffcc00);
+        color: #111;
+        transform: translateX(5px) scale(1.01);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        @media (max-width: 1024px) {
+            transform: translateX(0) scale(1.03);
+        }
+    }
+    a.current-page:not(.active) {
+      // Optional: style for current page if not "active"
+    }
+}
+
+/* Main Content */
+.main-content-blog {
+    flex: 1;
+    background-color: #fff;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    min-width: 0;
+    margin-top: 50px;
+    
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
+}
+
+.blog-section {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.main-heading-blog {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    color: #333;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #ffcc00, #ffdd44);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.intro-text {
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    margin-bottom: 2rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.hero-blog {
+    h3 {
+        font-size: clamp(1.3rem, 4vw, 1.6rem);
+        color: #333;
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+}
+
+.loading-text, .error-text, .no-articles-text {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 2rem 0;
+    color: #777;
+}
+.error-text { color: #d9534f; }
+
+/* Blog Cards */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.blog-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-card-image-link {
+        display: block;
+    }
+
+    .blog-card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .blog-card-content {
+        padding: 1.5rem;
+        text-align: left;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blog-card-title {
+        font-size: clamp(1.1rem, 4vw, 1.3rem);
+        color: #222;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+        a { text-decoration: none; color: inherit; }
+        a:hover { color: var(--primary-color, #5848c2); }
+    }
+
+    .blog-card-author-date {
+        font-size: 0.85rem;
+        color: #777;
+        margin-bottom: 0.75rem;
+    }
+
+    .blog-card-excerpt {
+        color: #555;
+        font-size: clamp(0.9rem, 3vw, 0.95rem);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+    }
+
+    .blog-card-meta {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 1rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .read-more-link {
+        display: inline-block;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: var(--primary-color, #5848c2); // Base color uses CSS variable
+        text-decoration: none;
+        transition: color 0.3s;
+        margin-top: auto;
+
+        &:hover {
+            color: darken($primary-color-value, 10%); // Use Sass variable for darken
+            text-decoration: underline;
+        }
+    }
+}
+
+/* Footer Note */
+.footer-note {
+    margin-top: 2.5rem;
+    font-style: italic;
+    font-weight: 500;
+    color: #222;
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.1rem);
+}

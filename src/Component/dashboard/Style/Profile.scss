@@ -1,0 +1,295 @@
+// Profile.scss
+
+// --- Variables ---
+// Sidebar width - this should match your Sidebar.scss ($sidebar-width-desktop)
+$sidebar-width-desktop: 260px; // Assuming this is the width from your Sidebar.scss
+$sidebar-transition-duration: 0.3s; // Optional, for smooth transitions
+$sidebar-transition-timing: ease-in-out; // Optional
+
+// Breakpoints (already defined in your file)
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px; // This is the key breakpoint for sidebar changes
+$breakpoint-lg: 992px;
+
+// Variables (can be shared or specific)
+$profile-primary-color: #6c63ff;
+$profile-primary-dark: #4a4a8a;
+$profile-secondary-color: #4CAF50;
+$profile-secondary-dark: #45a049;
+$profile-danger-color: #dc3545;
+$profile-danger-dark: #c82333;
+$profile-card-bg: #ffffff;
+$profile-page-bg: #f0f2f5;
+$profile-border-color: #e0e0e0;
+
+.dashboard-profile {
+  display: flex;
+  background-color: #1E1E78;
+  min-height: 100vh;
+  border: 10px solid #0A197C;
+
+  @media (min-width: $breakpoint-md) {
+    border: 20px solid #0A197C;
+  }
+}
+
+.main-content-profile {
+  flex: 1;
+  padding: 15px;
+  background: $profile-page-bg;
+
+  // --- KEY ADDITION FOR SIDEBAR ---
+  margin-left: $sidebar-width-desktop; // Push content to the right of the desktop sidebar
+  transition: margin-left $sidebar-transition-duration $sidebar-transition-timing; // For smooth transitions
+  // --- END KEY ADDITION ---
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+
+  input[type="text"] {
+    flex: 1 1 auto;
+    min-width: 150px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid $profile-border-color;
+    outline: none;
+    font-size: 0.9em;
+    &:focus {
+      border-color: $profile-primary-color;
+    }
+  }
+
+  .bell {
+    color: $profile-primary-color;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .btn-primary {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+}
+
+.card {
+  background-color: $profile-card-bg;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.user-profile h3,
+.preferences h3,
+.billing-info h3 {
+  color: $profile-primary-dark;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  border-bottom: 1px solid $profile-border-color;
+  padding-bottom: 10px;
+}
+
+.profile-picture {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid $profile-primary-color;
+    object-fit: cover;
+  }
+}
+
+.profile-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+
+  .btn-secondary, .btn-danger {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.profile-form {
+  .form-group {
+    margin-bottom: 15px;
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9em;
+      color: #555;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 5px;
+      border: 1px solid $profile-border-color;
+      outline: none;
+      font-size: 0.95em;
+      &:focus {
+        border-color: $profile-primary-color;
+        box-shadow: 0 0 0 0.1rem rgba($profile-primary-color, 0.25);
+      }
+      &[readOnly] {
+        
+        cursor: not-allowed;
+      }
+    }
+  }
+  button[type="submit"].btn-primary {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+.preferences label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 0.95em;
+  color: #444;
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: $profile-primary-color;
+  }
+}
+
+.billing-info button.btn-primary {
+  width: 100%;
+  padding: 12px 0;
+}
+
+.btn-primary {
+  background-color: $profile-primary-color;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1em;
+  &:hover:not(:disabled) {
+    background-color: $profile-primary-dark;
+  }
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background-color: $profile-secondary-color;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9em;
+  &:hover {
+    background-color: $profile-secondary-dark;
+  }
+}
+
+.btn-danger {
+  background-color: $profile-danger-color;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9em;
+  &:hover {
+    background-color: $profile-danger-dark;
+  }
+}
+
+// --- Responsive Adjustments for Profile ---
+
+// For screens smaller than $breakpoint-md (e.g., mobile view where sidebar is an overlay)
+@media (max-width: #{$breakpoint-md - 1px}) {
+  .main-content-profile {
+    // --- KEY ADDITION FOR SIDEBAR (Mobile) ---
+    margin-left: 0; // Remove the margin, content takes full width
+    // --- END KEY ADDITION ---
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+// These styles apply if screen is >= 576px AND potentially < 768px (so margin-left is 0)
+// OR if screen is >= 768px (so margin-left is $sidebar-width-desktop)
+@media (min-width: $breakpoint-sm) {
+  .main-content-profile {
+    padding: 20px;
+  }
+  .search-container {
+    flex-wrap: nowrap;
+    input[type="text"] {
+      font-size: 1em;
+    }
+    .btn-primary {
+      font-size: 1em;
+      padding: 10px 20px;
+    }
+  }
+  .profile-picture {
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+  .profile-form {
+    button[type="submit"].btn-primary {
+      width: auto;
+      min-width: 150px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+// At this point, .main-content-profile WILL have margin-left: $sidebar-width-desktop;
+@media (min-width: $breakpoint-md) {
+  .main-content-profile {
+    padding: 25px 30px;
+    // margin-left: 0; // This was a comment in your original, ensure it's not active if sidebar is always fixed on desktop
+  }
+  .card {
+    padding: 20px;
+  }
+  .profile-picture {
+    flex-direction: row;
+    align-items: center;
+  }
+  .profile-btns {
+    flex-direction: row;
+    width: auto;
+    .btn-secondary, .btn-danger {
+      width: auto;
+    }
+  }
+}

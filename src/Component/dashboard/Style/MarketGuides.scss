@@ -1,0 +1,345 @@
+// MarketGuides.scss
+
+// --- Variables ---
+// Sidebar width - this should match your Sidebar.scss ($sidebar-width-desktop)
+$sidebar-width-desktop: 260px; // Assuming this is the width from your Sidebar.scss
+$sidebar-transition-duration: 0.3s; // Optional, for smooth transitions
+$sidebar-transition-timing: ease-in-out; // Optional
+
+// Breakpoints (already defined in your file)
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px; // This is the key breakpoint for sidebar changes
+$breakpoint-lg: 992px;
+
+
+.dashboard-marketguides {
+  display: flex;
+  background-color: #1E1E78;
+  min-height: 100vh;
+  border: 10px solid #0A197C;
+
+  @media (min-width: $breakpoint-md) {
+    border: 20px solid #0A197C;
+  }
+}
+
+.main-content-MarketGuides {
+  flex-grow: 1;
+  padding: 15px;
+  background-color: white;
+  color: black;
+
+  // --- KEY ADDITION FOR SIDEBAR ---
+  margin-left: $sidebar-width-desktop; // Push content to the right of the desktop sidebar
+  transition: margin-left $sidebar-transition-duration $sidebar-transition-timing; // For smooth transitions
+  // --- END KEY ADDITION ---
+
+  h1 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+  }
+  h3 {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  // Blog section styles
+  .main-content-blog {
+    .blog-section {
+      .main-heading-blog {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+
+        @media (max-width: $breakpoint-sm) {
+          font-size: 2em;
+        }
+      }
+
+      .intro-text {
+        font-size: 1.1em;
+        color: #666;
+        text-align: center;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .hero-blog {
+        h3 {
+          font-size: 1.5em;
+          color: #333;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%;
+  }
+}
+
+.explore-btn {
+  background-color: #4C27B8;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    background-color: darken(#4C27B8, 10%);
+  }
+}
+
+.tags, .categories, .skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag, .skill {
+  background-color: #E0B3FF;
+  border-radius: 15px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+}
+
+.categories {
+  justify-content: flex-start;
+}
+
+.category {
+  padding: 8px 12px;
+  font-size: 0.9em;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+
+  .right {
+    background-color: #E0B3FF;
+    border-radius: 50%;
+    padding: 6px;
+    margin-right: 8px;
+    font-size: 0.8em;
+  }
+}
+
+.rating {
+  display: flex;
+  margin-bottom: 20px; // Added for spacing
+  .star {
+    color: #7EF8E5;
+    margin-right: 4px;
+    font-size: 1.8em;
+  }
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  img {
+    width: calc(50% - 10px); // Two images per row on smaller screens, accounting for gap
+    max-width: 120px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+}
+
+// --- Responsive Adjustments for MarketGuides ---
+
+// For screens smaller than $breakpoint-md (e.g., mobile view where sidebar is an overlay)
+@media (max-width: #{$breakpoint-md - 1px}) {
+  .main-content-MarketGuides {
+    // --- KEY ADDITION FOR SIDEBAR (Mobile) ---
+    margin-left: 0; // Remove the margin, content takes full width
+    // --- END KEY ADDITION ---
+  }
+}
+
+
+// Small devices (landscape phones, 576px and up)
+// These styles apply if screen is >= 576px AND potentially < 768px (so margin-left is 0)
+// OR if screen is >= 768px (so margin-left is $sidebar-width-desktop)
+@media (min-width: $breakpoint-sm) {
+  .main-content-MarketGuides {
+    padding: 20px;
+    h1 { font-size: 1.8em; }
+    h3 { font-size: 1.3em; }
+  }
+
+  .search-bar {
+    flex-direction: row;
+    align-items: center;
+    input[type="text"] { width: auto; }
+    .explore-btn { width: auto; }
+  }
+
+  .image-gallery img {
+    width: calc(33.333% - 10px);
+    max-width: 150px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+// At this point, .main-content-MarketGuides WILL have margin-left: $sidebar-width-desktop;
+@media (min-width: $breakpoint-md) {
+  .main-content-MarketGuides {
+    padding: 25px;
+    h1 { font-size: 2em; }
+  }
+
+  .image-gallery img {
+    width: calc(25% - 12px);
+    max-width: 180px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: $breakpoint-lg) {
+  .image-gallery img {
+    max-width: 200px;
+  }
+}
+
+// --- Blog Grid and Card Styles ---
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.blog-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .blog-card-image-link {
+    display: block;
+  }
+
+  .blog-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .blog-card-content {
+    padding: 1.5rem;
+    text-align: left;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card-title {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    color: #222;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    
+    a { 
+      text-decoration: none; 
+      color: inherit; 
+    }
+    
+    a:hover { 
+      color: #4C27B8; 
+    }
+  }
+
+  .blog-card-author-date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-card-excerpt {
+    color: #555;
+    font-size: clamp(0.9rem, 3vw, 0.95rem);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .blog-card-meta {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  .read-more-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #4C27B8;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin-top: auto;
+
+    &:hover {
+      color: darken(#4C27B8, 10%);
+      text-decoration: underline;
+    }
+  }
+}
+
+// Loading and error states
+.loading-text, .error-text, .no-articles-text {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+  color: #777;
+}
+
+.error-text { 
+  color: #d9534f; 
+}
+
+.footer-note {
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}

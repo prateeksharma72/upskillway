@@ -1,0 +1,44 @@
+.data-card {
+  
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+  h4 {
+    margin-top: 0;
+    color: #34495e; /* Dark blue-gray */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #f0f0f0;
+    font-size: 0.9em;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      
+      margin-right: 10px;
+      // text-transform: capitalize; // Removed to allow custom formatting in JS
+    }
+
+    span {
+      
+      text-align: right;
+    }
+  }
+}

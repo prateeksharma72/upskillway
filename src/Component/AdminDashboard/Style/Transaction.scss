@@ -1,0 +1,263 @@
+// --- Color Palette (Customize as needed) ---
+$primary-color: #007bff; // Example: Blue for active elements, buttons
+$secondary-color: #6c757d; // Example: Gray for secondary text or borders
+$background-light: #f8f9fa; // Light gray page background
+$background-white: #ffffff; // White for content cards/sections
+$text-dark: #343a40; // Dark text for headings and primary content
+$text-light: #6c757d; // Lighter text for subheadings, placeholders
+$border-color: #dee2e6; // Standard border color
+
+$success-color: #28a745; // Green for success messages, completed status
+$warning-color: #ffc107; // Yellow for pending status, warnings
+$danger-color: #dc3545;  // Red for error messages, failed status
+$info-color: #17a2b8;    // Teal/Blue for informational messages or other statuses
+
+// --- Main Page Layout ---
+.dashboard-transaction-page {
+  display: flex; // For SidebarAdmin and main content layout
+  min-height: 100vh;
+  background-color: $background-light;
+
+  .main-content-area {
+    flex-grow: 1;
+    padding: 25px;
+    overflow-y: auto; // Allows content to scroll if it exceeds viewport height
+
+    .page-header {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $border-color;
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
+      // You can add more styles for subheadings or descriptions here
+    }
+
+    .transactions-section {
+      background-color: $background-white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Subtle shadow for depth
+      padding: 20px;
+    }
+  }
+}
+
+// --- Tabs Styling ---
+.tabs-navigation {
+  display: flex;
+  border-bottom: 2px solid $border-color;
+  margin-bottom: 20px;
+
+  .tab-button {
+    padding: 12px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $text-light;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+    margin-right: 5px; // Spacing between tabs
+    position: relative; // For the active indicator line (underline)
+
+    &:hover {
+      color: $text-dark;
+    }
+
+    &.active {
+      color: $primary-color;
+      font-weight: 600;
+      // Underline for active tab
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px; // Align with the container's border-bottom
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $primary-color;
+      }
+    }
+     &:disabled { // Style for disabled tabs (e.g., while loading other tabs)
+      color: lighten($text-light, 20%);
+      cursor: not-allowed;
+    }
+  }
+}
+
+// --- Tab Content & Messages (Loading, Info, Error) ---
+.tab-content-area {
+  min-height: 150px; // Give some minimum height to prevent collapse when empty
+
+  .loading-message,
+  .info-message,
+  .error-message {
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: $text-light;
+    border: 1px dashed $border-color;
+    border-radius: 5px;
+    background-color: lighten($background-light, 2%);
+    margin-top: 20px;
+  }
+
+  .error-message { // Specific styling for error messages
+    color: $danger-color;
+    border-color: lighten($danger-color, 30%);
+    background-color: lighten($danger-color, 45%); // Very light red background
+  }
+
+  .global-error-message { // Style for the main global error (e.g., auth failure)
+    margin-bottom: 20px; // Add some space if it appears above tabs or content
+  }
+}
+
+
+// --- Transaction Table Styling ---
+.transaction-table-container {
+  overflow-x: auto; // ESSENTIAL for responsiveness on smaller screens to allow horizontal scroll
+
+  table {
+    width: 100%;
+    min-width: 700px; // Suggests a minimum width before horizontal scrolling kicks in. Adjust as needed.
+    border-collapse: collapse; // Clean borders
+
+    th, td {
+      padding: 12px 15px; // Comfortable padding
+      text-align: left;
+      border-bottom: 1px solid $border-color;
+      vertical-align: middle; // Good for multi-line content
+      color: $text-dark;
+    }
+
+    th { // Table headers
+      background-color: $background-light;
+      color: $text-dark;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px; // Slight letter spacing for headers
+    }
+
+    tbody tr {
+      &:hover {
+        background-color: lighten($background-light, 2.5%); // Subtle hover effect
+      }
+      // Alternating row colors (optional)
+      // &:nth-child(even) {
+      //   background-color: lighten($background-light, 3%);
+      // }
+    }
+
+    // Status Badges (for 'completed', 'pending', etc.)
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: 15px; // Pill-shaped badges
+      font-size: 0.8em;
+      font-weight: 500;
+      color: $background-white; // Default text color for badges (usually white)
+      text-transform: capitalize;
+      display: inline-block; // So padding and width work well
+      min-width: 70px; // Ensures badges have a decent minimum width
+      text-align: center;
+
+      &.status-completed { background-color: $success-color; }
+      &.status-pending { background-color: $warning-color; color: $text-dark; } // Dark text for better contrast on yellow
+      &.status-failed { background-color: $danger-color; }
+      &.status-cancelled { background-color: $secondary-color; } // Example for another status
+      &.status-refunded { background-color: $info-color; } // Example
+      // Fallback for unknown or missing status class
+      &.status-unknown, &:not([class*="status-"]) {
+        background-color: $text-light;
+      }
+    }
+  }
+}
+
+// --- Responsive Adjustments ---
+@media screen and (max-width: 768px) {
+  .dashboard-transaction-page .main-content-area {
+    padding: 15px; // Reduce padding on smaller screens
+
+    .page-header h1 {
+      font-size: 1.5rem; // Slightly smaller heading
+    }
+  }
+
+  .tabs-navigation .tab-button {
+    padding: 10px 12px; // Reduce tab padding
+    font-size: 0.9rem;
+  }
+
+  // Optional: Card-like display for table on very small screens
+  // If you prefer horizontal scroll, keep this commented.
+  // If you use this, ensure your <td> elements have `data-label` attributes as in your JSX.
+  /*
+  .transaction-table-container {
+    table {
+      min-width: auto; // Override min-width for card view
+      thead {
+        display: none; // Hide table headers in card view
+      }
+
+      tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        padding: 10px;
+        background-color: $background-white;
+      }
+
+      td {
+        display: block;
+        text-align: right; // Align value to the right
+        padding-left: 45%;   // Make space for the label
+        position: relative;
+        border-bottom: 1px dotted lighten($border-color, 5%);
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        &::before {
+          content: attr(data-label); // Use data-label for the "header"
+          position: absolute;
+          left: 10px;
+          width: calc(45% - 20px); // Adjust width
+          padding-right: 10px;
+          white-space: nowrap;
+          text-align: left;
+          font-weight: bold;
+          color: $text-dark;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  */
+}
+
+// For even smaller screens, you might want to stack tabs vertically
+@media screen and (max-width: 480px) {
+  .tabs-navigation {
+    flex-direction: column; // Stack tabs vertically
+
+    .tab-button {
+      margin-right: 0;
+      margin-bottom: 2px; // Small space between stacked tabs
+      border-bottom: 1px solid $border-color; // Simple separator
+
+      &.active::after { // Adjust active indicator for vertical tabs
+        width: 3px; // Vertical line on the left
+        height: 100%;
+        left: 0;
+        bottom: 0;
+      }
+    }
+  }
+}

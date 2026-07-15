@@ -1,0 +1,207 @@
+// --- START: SCSS VARIABLES ---
+$text-primary: #2c3e50;
+$text-secondary: #576574;
+$text-light: #7f8c8d;
+$border-color: #e0e0e0;
+$table-header-bg: #f8f9fa;
+$table-row-hover-bg: #f1f3f5;
+$card-bg: #ffffff;
+$card-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.25rem;
+$bp-md: 768px;
+$transition-speed: 0.3s;
+$success-color: #27ae60;
+$error-border: #e74c3c;
+// Status colors
+$status-pending-bg: #fffbe6;
+$status-pending-text: #d48806;
+$status-pending-border: #ffe58f;
+$status-approved-bg: #f6ffed;
+$status-approved-text: #52c41a;
+$status-approved-border: #b7eb8f;
+$status-rejected-bg: #fff1f0;
+$status-rejected-text: #f5222d;
+$status-rejected-border: #ffa39e;
+// --- END: SCSS VARIABLES ---
+
+.withdrawal-page {
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+  h2 {
+    
+    font-size: $font-size-lg + 0.4rem;
+    margin: 0 0 8px;
+  }
+  p {
+    
+    font-size: $font-size-base;
+    margin: 0;
+  }
+}
+
+.table-container {
+  background-color: $card-bg;
+  border-radius: 8px;
+  box-shadow: $card-shadow;
+  overflow-x: auto; // Ensures table is scrollable if content overflows
+}
+
+.withdrawal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+
+  th, td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid $border-color;
+  }
+
+  thead {
+    background-color: $table-header-bg;
+    th {
+      color: $text-secondary;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background-color $transition-speed ease;
+      &:last-child td {
+        border-bottom: none;
+      }
+      &:hover {
+        background-color: $table-row-hover-bg;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    .user-name {
+      font-weight: 600;
+      color: $text-primary;
+    }
+    .user-email {
+      color: $text-light;
+      font-size: 0.9em;
+    }
+  }
+
+  .amount-cell {
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: 1px solid transparent;
+
+    &.status-pending {
+      background-color: $status-pending-bg;
+      color: $status-pending-text;
+      border-color: $status-pending-border;
+    }
+    &.status-approved {
+      background-color: $status-approved-bg;
+      color: $status-approved-text;
+      border-color: $status-approved-border;
+    }
+    &.status-rejected {
+      background-color: $status-rejected-bg;
+      color: $status-rejected-text;
+      border-color: $status-rejected-border;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    .btn {
+      padding: 6px 12px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all $transition-speed ease;
+
+      &.btn-approve {
+        background-color: $success-color;
+        color: white;
+        &:hover {
+          background-color: darken($success-color, 10%);
+        }
+      }
+      &.btn-reject {
+        background-color: transparent;
+        color: $error-border;
+        border-color: $error-border;
+        &:hover {
+          background-color: $error-border;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles for the table
+@media (max-width: $bp-md) {
+  .withdrawal-table {
+    thead {
+      display: none; // Hide the header on mobile
+    }
+    tr {
+      display: block;
+      margin-bottom: 16px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      padding: 8px;
+    }
+    td {
+      display: block;
+      text-align: right; // Align content to the right
+      padding: 12px;
+      border-bottom: 1px dotted lighten($border-color, 5%);
+      position: relative;
+
+      &::before {
+        content: attr(data-label); // Use data-label for the header text
+        float: left; // Align label to the left
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $text-secondary;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    .action-buttons {
+      justify-content: flex-end; // Push buttons to the right
+    }
+  }
+}
+
+// Centered messages for loading, error, and no-data states
+.loading-message, .error-message, .no-data-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: $text-secondary;
+  font-size: $font-size-base;
+}
+.error-message {
+  color: $error-border;
+}

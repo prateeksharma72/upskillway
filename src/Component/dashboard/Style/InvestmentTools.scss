@@ -1,0 +1,736 @@
+// InvestmentTools.scss - Complete and Corrected with Tab Navigation
+
+// --- Dark Theme Color Palette ---
+$dark-bg-page: #0D1117;          // Overall page background
+$dark-bg-primary: #10141E;       // Main content area (.tool-container)
+$dark-bg-secondary: #161B22;     // Cards, form wrappers, chart container
+$dark-bg-tertiary: #21262D;      // Input fields background, disabled buttons, table header
+
+$dark-text-primary: #C9D1D9;     // Light grayish, for main text, headings
+$dark-text-secondary: #8B949E;   // Medium gray, for secondary text, labels
+$dark-text-tertiary: #586069;    // Darker gray for placeholders, subtle text
+
+$dark-accent-primary: #805AD5;   // Vibrant purple
+$dark-accent-secondary: #6B46C1; // Darker purple for hover/active
+$dark-accent-tertiary: #B794F4;  // Lighter purple
+
+$dark-border-primary: #30363D;   // General borders on cards, inputs
+$dark-border-secondary: #21262D; // More subtle borders or table cell borders
+
+$dark-success: #3FB950;          // Green for positive
+$dark-error: #F85149;            // Red for negative/error
+$dark-info-bg: #1F6FEB;          // Blue for info background
+$dark-info-text: #E0E6F1;
+
+$dark-button-text: #FFFFFF;
+
+// --- Layout & Transitions ---
+$sidebar-width-desktop: 260px;
+$sidebar-transition-duration: 0.3s;
+$sidebar-transition-timing: ease-in-out;
+$border-radius-base: 8px;
+$box-shadow-base: 0 4px 12px rgba(0, 0, 0, 0.3);
+$box-shadow-focus: 0 0 0 3px rgba($dark-accent-primary, 0.3);
+
+// --- Breakpoints ---
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+
+// --- Global & Base Styles ---
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $dark-bg-page;
+  color: $dark-text-primary;
+}
+
+// Custom scrollbar for dark theme (WebKit browsers)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: $dark-bg-primary;
+}
+::-webkit-scrollbar-thumb {
+  background: $dark-text-tertiary;
+  border-radius: 4px;
+  &:hover {
+    background: lighten($dark-text-tertiary, 10%);
+  }
+}
+
+// --- Mixins ---
+@mixin card-styling($padding: 20px) {
+  background-color: $dark-bg-secondary;
+  border: 1px solid $dark-border-primary;
+  border-radius: $border-radius-base;
+  padding: $padding;
+  margin-bottom: 25px;
+  box-shadow: $box-shadow-base;
+  color: $dark-text-primary;
+}
+
+// --- Page Structure ---
+.investment-tools-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content-investment-tool {
+  display: flex;
+  flex-grow: 1;
+  background-color: $dark-bg-primary;
+  min-height: 100vh;
+}
+
+.tool-container {
+  flex-grow: 1;
+  padding: 25px;
+  background-color: $dark-bg-primary;
+  margin-left: $sidebar-width-desktop;
+  transition: margin-left $sidebar-transition-duration $sidebar-transition-timing;
+  overflow-y: auto;
+
+  h2 {
+    color: $dark-text-primary;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+    border-bottom: 2px solid $dark-accent-primary;
+    padding-bottom: 15px;
+  }
+}
+
+// --- TAB NAVIGATION STYLES ---
+.tab-navigation {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 2px solid $dark-border-primary;
+  gap: 0;
+
+  .tab-button {
+    padding: 12px 24px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: $dark-text-secondary;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      color: $dark-text-primary;
+      background-color: rgba($dark-accent-primary, 0.1);
+    }
+
+    &.active {
+      color: $dark-accent-primary;
+      border-bottom-color: $dark-accent-primary;
+      background-color: rgba($dark-accent-primary, 0.05);
+      font-weight: 600;
+    }
+
+    &:first-child {
+      border-top-left-radius: $border-radius-base;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius-base;
+    }
+  }
+}
+
+// --- PLANS SECTION STYLES ---
+.plans-section {
+  margin-top: 20px;
+
+  h3 {
+    color: $dark-text-primary;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+    font-weight: 600;
+    border-bottom: 1px solid $dark-border-primary;
+    padding-bottom: 10px;
+  }
+
+  .plans-loading {
+    @include card-styling;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 40px;
+
+    p {
+      color: $dark-text-secondary;
+      margin: 0;
+      font-size: 1.1em;
+    }
+  }
+
+  .no-plans {
+    @include card-styling;
+    text-align: center;
+    padding: 40px;
+
+    p {
+      color: $dark-text-secondary;
+      margin: 0;
+      font-size: 1.1em;
+      font-style: italic;
+    }
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+
+    .plan-card {
+      @include card-styling;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba($dark-accent-primary, 0.15);
+      }
+
+      .plan-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $dark-border-primary;
+
+        h4 {
+          margin: 0;
+          color: $dark-text-primary;
+          font-size: 1.25em;
+          font-weight: 600;
+          flex-grow: 1;
+        }
+
+        .plan-price {
+          color: $dark-accent-primary;
+          font-size: 1.4em;
+          font-weight: 700;
+          margin-left: 15px;
+        }
+      }
+
+      .plan-description {
+        color: $dark-text-secondary;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        flex-grow: 1;
+        font-size: 0.95em;
+      }
+
+      .plan-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 20px;
+        padding-top: 15px;
+        border-top: 1px solid $dark-border-secondary;
+
+        small {
+          color: $dark-text-tertiary;
+          font-size: 0.85em;
+        }
+      }
+
+      .plan-select-btn {
+        @extend .btn-primary;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: 0;
+        padding: 12px 20px;
+        font-size: 1em;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// --- GENERIC BUTTON STYLES ---
+.btn {
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: $border-radius-base - 2px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-height: 42px;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+  }
+}
+
+.btn-primary {
+  @extend .btn;
+  background: linear-gradient(145deg, $dark-accent-primary, $dark-accent-secondary);
+  color: $dark-button-text;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba($dark-accent-primary, 0.3);
+  }
+  &:active:not(:disabled) {
+    transform: translateY(0px);
+    box-shadow: 0 2px 4px rgba($dark-accent-primary, 0.2);
+  }
+  &:disabled {
+    background: $dark-bg-tertiary;
+    color: $dark-text-tertiary;
+    box-shadow: none;
+  }
+}
+
+.btn-secondary {
+  @extend .btn;
+  background-color: $dark-bg-tertiary;
+  border-color: $dark-border-primary;
+  color: $dark-text-primary;
+
+  &:hover:not(:disabled) {
+    background-color: lighten($dark-bg-tertiary, 5%);
+    border-color: $dark-text-secondary;
+  }
+}
+
+// --- Component Styling ---
+
+.api-selector {
+  @include card-styling;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  select#api-select {
+    padding: 12px 15px;
+    border-radius: $border-radius-base - 2px;
+    border: 1px solid $dark-border-primary;
+    font-size: 1em;
+    background-color: $dark-bg-tertiary;
+    color: $dark-text-primary;
+    width: 100%;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23#{str-slice("#{$dark-text-secondary}", 2)}'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $dark-accent-primary;
+      box-shadow: $box-shadow-focus;
+    }
+  }
+}
+
+.input-form-container {
+  @include card-styling;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      label {
+        margin-bottom: 8px;
+        font-size: 0.9em;
+        color: $dark-text-secondary;
+        font-weight: 500;
+      }
+      input[type="text"],
+      input[type="search"] {
+        padding: 12px 15px;
+        border: 1px solid $dark-border-primary;
+        border-radius: $border-radius-base - 2px;
+        font-size: 1em;
+        width: 100%;
+        background-color: $dark-bg-tertiary;
+        color: $dark-text-primary;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        &::placeholder { color: $dark-text-tertiary; }
+        &:focus { outline: none; border-color: $dark-accent-primary; box-shadow: $box-shadow-focus; }
+      }
+    }
+
+    button[type="submit"] {
+      @extend .btn-primary;
+      margin-top: 10px;
+    }
+  }
+}
+
+.data-display-area {
+  margin-top: 30px;
+  .no-data-message {
+    @include card-styling(30px);
+    text-align: center;
+    color: $dark-text-secondary;
+    font-style: italic;
+  }
+  .data-card {
+    @include card-styling;
+    h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      color: $dark-text-primary;
+      border-bottom: 1px solid $dark-border-primary;
+      padding-bottom: 10px;
+    }
+  }
+  .data-table-container {
+    @include card-styling(0px);
+    overflow-x: auto;
+    .data-table-title {
+        padding: 15px 20px;
+        margin: 0;
+        font-size: 1.2em;
+        color: $dark-text-primary;
+        border-bottom: 1px solid $dark-border-primary;
+        background-color: lighten($dark-bg-secondary, 2%);
+    }
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      th, td {
+        padding: 12px 18px;
+        text-align: left;
+        border-bottom: 1px solid $dark-border-secondary;
+        color: $dark-text-primary;
+        font-size: 0.9em;
+        white-space: nowrap;
+      }
+      th {
+        background-color: $dark-bg-tertiary;
+        color: $dark-text-primary;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background-color: lighten($dark-bg-secondary, 3%); }
+    }
+  }
+}
+
+.chart-controls {
+  @include card-styling;
+  text-align: center;
+  h4 {
+    color: $dark-text-primary;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+  }
+  button {
+    padding: 10px 18px;
+    margin: 5px;
+    background-color: $dark-bg-tertiary;
+    color: $dark-text-primary;
+    border: 1px solid $dark-border-primary;
+    border-radius: $border-radius-base - 2px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    &:hover:not(:disabled) {
+      background-color: lighten($dark-bg-tertiary, 7%);
+      border-color: $dark-accent-tertiary;
+      color: $dark-accent-tertiary;
+    }
+    &:disabled {
+      background-color: $dark-accent-primary;
+      color: $dark-button-text;
+      border-color: $dark-accent-primary;
+      cursor: default;
+      font-weight: 600;
+    }
+  }
+}
+
+.chart-container {
+  @include card-styling(10px);
+  margin-top: 25px;
+  h3 {
+    padding: 0 10px 10px 10px;
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    color: $dark-text-primary;
+    border-bottom: 1px solid $dark-border-primary;
+  }
+  .recharts-cartesian-axis-tick-value tspan { fill: $dark-text-secondary; }
+  .recharts-text.recharts-label { fill: $dark-text-primary; }
+  .recharts-legend-item-text { color: $dark-text-secondary !important; }
+  .recharts-cartesian-grid-horizontal line,
+  .recharts-cartesian-grid-vertical line { stroke: $dark-border-primary; }
+  .recharts-brush .recharts-cartesian-axis-tick-value tspan { fill: lighten($dark-text-secondary, 15%); }
+}
+
+.custom-recharts-tooltip {
+  background-color: lighten($dark-bg-secondary, 5%);
+  border: 1px solid $dark-border-primary;
+  padding: 12px;
+  border-radius: $border-radius-base - 4px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  font-size: 0.9em;
+  .recharts-tooltip-label {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    color: $dark-text-primary;
+    border-bottom: 1px solid $dark-border-primary;
+    padding-bottom: 8px;
+  }
+  .recharts-tooltip-item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    li { color: $dark-text-secondary; margin: 4px 0; }
+  }
+}
+
+// --- MODAL STYLES ---
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  @include card-styling;
+  width: 90%;
+  max-width: 500px;
+  animation: slideDown 0.3s ease-out;
+  margin-bottom: 0;
+  padding: 0;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid $dark-border-primary;
+    h3 { margin: 0; font-size: 1.25em; color: $dark-text-primary; }
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 2em;
+      line-height: 1;
+      color: $dark-text-secondary;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s ease, transform 0.2s ease;
+      &:hover { color: $dark-text-primary; transform: scale(1.1); }
+    }
+  }
+
+  .modal-body {
+    padding: 20px 25px;
+    .price-info, .total-cost-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1em;
+      color: $dark-text-secondary;
+      margin-bottom: 15px;
+      span:last-child { font-weight: 600; color: $dark-text-primary; }
+    }
+    .total-cost-info {
+        font-size: 1.1em;
+        border-top: 1px solid $dark-border-primary;
+        padding-top: 15px;
+        margin-top: 20px;
+        .total-cost-value { color: $dark-success; }
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      label { font-weight: 500; color: $dark-text-secondary; }
+      input {
+        padding: 12px 15px;
+        border: 1px solid $dark-border-primary;
+        border-radius: $border-radius-base - 2px;
+        font-size: 1.1em;
+        width: 100%;
+        background-color: $dark-bg-tertiary;
+        color: $dark-text-primary;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        &:focus { outline: none; border-color: $dark-accent-primary; box-shadow: $box-shadow-focus; }
+      }
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 15px 20px;
+    background-color: lighten($dark-bg-secondary, 2%);
+    border-top: 1px solid $dark-border-primary;
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+  }
+}
+
+// --- Auth Message Styling ---
+.auth-message-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+  margin-left: $sidebar-width-desktop;
+  transition: margin-left $sidebar-transition-duration $sidebar-transition-timing;
+}
+
+// --- Responsive Adjustments ---
+@media (max-width: #{$breakpoint-md - 1px}) {
+  .tool-container,
+  .auth-message-container {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .tool-container h2 { font-size: 1.6em; }
+
+  .tab-navigation {
+    .tab-button {
+      padding: 10px 16px;
+      font-size: 0.9em;
+    }
+  }
+
+  .plans-section {
+    .plans-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .input-form-container form,
+  .api-selector {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    select#api-select,
+    .form-group,
+    button[type="submit"] { width: 100%; }
+  }
+  .chart-controls {
+    button {
+        width: calc(50% - 10px);
+        &:last-child { margin-right: 0;}
+    }
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .input-form-container form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    .form-group {
+      flex: 1 1 200px;
+      min-width: 180px;
+    }
+    button[type="submit"] {
+      width: auto;
+      margin-top: 0;
+      margin-left: 15px;
+      align-self: flex-end;
+    }
+  }
+
+  .api-selector {
+    flex-direction: row;
+    align-items: center;
+    select#api-select {
+      width: auto;
+      min-width: 280px;
+      flex-grow: 1;
+    }
+  }
+
+  .chart-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    button {
+      margin: 0 8px;
+      width: auto;
+    }
+  }
+
+  .plans-section {
+    .plans-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .tool-container { padding: 30px 40px; }
+  .input-form-container form .form-group { min-width: 220px; }
+  .api-selector select#api-select { min-width: 320px; }
+
+  .plans-section {
+    .plans-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+  }
+}

@@ -1,0 +1,385 @@
+// AdminPlans.scss
+
+// --- Variables ---
+$font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+  Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+// Colors
+$primary-color: #4F46E5; // Indigo
+$primary-color-hover: #4338CA;
+$secondary-color: #6B7280; // Gray
+$secondary-color-hover: #4B5563;
+$danger-color: #EF4444; // Red
+$danger-color-hover: #DC2626;
+$success-color: #10B981; // Emerald
+$warning-color: #F59E0B; // Amber
+
+$background-color: #F3F4F6; // Light gray page background
+$card-background: #FFFFFF;
+$modal-background: #FFFFFF;
+
+$text-primary: #111827; // Very dark gray / almost black
+$text-secondary: #374151; // Darker gray
+$text-muted: #6B7280; // Gray
+$text-on-primary: #FFFFFF;
+$text-on-danger: #FFFFFF;
+
+$border-color: #D1D5DB; // Light gray border
+$border-radius-base: 0.5rem; // 8px
+$border-radius-lg: 0.75rem; // 12px
+$shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+// Spacing
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem;  // 8px
+$spacing-md: 1rem;    // 16px
+$spacing-lg: 1.5rem;  // 24px
+$spacing-xl: 2rem;    // 32px
+$spacing-xxl: 3rem;   // 48px
+
+// Transitions
+$transition-fast: all 0.15s ease-in-out;
+$transition-base: all 0.2s ease-in-out;
+
+// --- Base Page Styles ---
+.admin-plans-page {
+    font-family: $font-family-sans;
+    background-color: $background-color;
+    min-height: 100vh;
+    padding: $spacing-lg $spacing-xl;
+
+    @media (max-width: 768px) {
+        padding: $spacing-md $spacing-lg;
+    }
+    @media (max-width: 480px) {
+        padding: $spacing-md;
+    }
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-lg;
+    border-bottom: 1px solid $border-color;
+
+    h1 {
+        font-size: 1.875rem; // 30px
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+    }
+
+    .btn-add-plan {
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-sm;
+        font-weight: 600;
+        svg { margin-right: $spacing-xs; }
+    }
+
+    @media (max-width: 640px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-md;
+        h1 { font-size: 1.5rem; } // 24px
+        .btn-add-plan { width: 100%; justify-content: center; }
+    }
+}
+
+// --- General Button Styles ---
+.btn {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid transparent;
+    border-radius: $border-radius-base;
+    font-size: 0.875rem; // 14px
+    font-weight: 600;
+    line-height: 1.25rem; // 20px
+    cursor: pointer;
+    transition: $transition-base;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+
+    &:focus-visible {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+    }
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &-primary {
+        background-color: $primary-color;
+        color: $text-on-primary;
+        &:hover:not(:disabled) { background-color: $primary-color-hover; }
+    }
+    &-secondary {
+        background-color: $card-background;
+        color: $text-secondary;
+        border-color: $border-color;
+        &:hover:not(:disabled) { background-color: #f0f0f0; border-color: darken($border-color, 5%); }
+    }
+    &-danger { // For non-icon delete buttons if needed
+        background-color: $danger-color;
+        color: $text-on-danger;
+        &:hover:not(:disabled) { background-color: $danger-color-hover; }
+    }
+    &-icon { // For icon-only buttons like edit/delete on cards
+        padding: $spacing-sm; // Square padding
+        background-color: transparent;
+        border-color: transparent;
+        color: $text-muted;
+        border-radius: 50%; // Circular
+        &:hover:not(:disabled) {
+            background-color: darken($background-color, 5%); // Subtle hover
+            color: $text-secondary;
+        }
+        &.btn-edit:hover:not(:disabled) { color: $primary-color; background-color: lighten($primary-color, 40%);}
+        &.btn-delete:hover:not(:disabled) { color: $danger-color; background-color: lighten($danger-color, 40%);}
+    }
+}
+
+// --- Modal Styles ---
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(17, 24, 39, 0.6); // Tailwind gray-900 with opacity
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-md;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+    background-color: $modal-background;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    padding: $spacing-xl;
+    width: 100%;
+    max-width: 550px; // Control max width of modal
+    position: relative;
+    animation: slideInUp 0.3s ease-out;
+
+    h2 {
+        font-size: 1.5rem; // 24px
+        font-weight: 700;
+        color: $text-primary;
+        margin-top: 0;
+        margin-bottom: $spacing-lg;
+        text-align: center;
+    }
+
+    .modal-close-button {
+        position: absolute;
+        top: $spacing-md;
+        right: $spacing-md;
+        background: none;
+        border: none;
+        color: $text-muted;
+        cursor: pointer;
+        padding: $spacing-xs;
+        border-radius: 50%;
+        line-height: 1;
+        transition: $transition-fast;
+        svg { display: block; }
+        &:hover {
+            color: $text-primary;
+            background-color: darken($background-color, 5%);
+        }
+    }
+
+    .form-group {
+        margin-bottom: $spacing-lg;
+        label {
+            display: block;
+            font-size: 0.875rem; // 14px
+            font-weight: 600;
+            color: $text-secondary;
+            margin-bottom: $spacing-sm;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem; // 12px 16px
+            font-size: 1rem; // 16px
+            color: $text-primary;
+            background-color: $card-background;
+            border: 1px solid $border-color;
+            border-radius: $border-radius-base;
+            transition: $transition-fast;
+            box-shadow: $shadow-base; // Subtle inner shadow or base shadow
+
+            &:focus {
+                outline: none;
+                border-color: $primary-color;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+            }
+            &::placeholder {
+                color: $text-muted;
+                opacity: 0.8;
+            }
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+    }
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: $spacing-md;
+        margin-top: $spacing-xl;
+    }
+}
+
+// --- Error & Loading & Empty State Messages ---
+.global-error-message, .form-error-message {
+    background-color: lighten($danger-color, 40%);
+    color: darken($danger-color,10%);
+    padding: $spacing-md;
+    border-radius: $border-radius-base;
+    border: 1px solid lighten($danger-color, 20%);
+    border-left: 4px solid $danger-color;
+    margin-bottom: $spacing-lg;
+    font-size: 0.9rem;
+}
+.form-error-message { // Specific to form inside modal
+    margin-bottom: $spacing-lg; // If it's above form groups
+    margin-top: -$spacing-sm; // Pull up if needed
+}
+
+.loading-indicator, .empty-state {
+    text-align: center;
+    padding: $spacing-xxl $spacing-md;
+    color: $text-muted;
+    font-size: 1.125rem; // 18px
+
+    p { margin: $spacing-xs 0; }
+}
+.empty-state {
+    background-color: $card-background;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-base;
+    border: 1px dashed $border-color;
+}
+
+
+// --- Plans Grid & Card Styles ---
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+    margin-top: $spacing-lg;
+
+    @media (max-width: 640px) {
+        grid-template-columns: 1fr; // Stack on small screens
+    }
+}
+
+.plan-card {
+    background-color: $card-background;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-base;
+    border: 1px solid $border-color;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // For clean borders with actions
+    transition: $transition-base;
+
+    &:hover {
+        box-shadow: $shadow-lg;
+        transform: translateY(-2px);
+    }
+
+    .plan-card-content {
+        padding: $spacing-lg;
+        flex-grow: 1; // Allows content to push actions down
+    }
+
+    .plan-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; // Align items to top
+        margin-bottom: $spacing-md;
+
+        h3 {
+            font-size: 1.25rem; // 20px
+            font-weight: 700;
+            color: $text-primary;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .plan-price {
+            font-size: 1.125rem; // 18px
+            font-weight: 700;
+            color: $primary-color;
+            white-space: nowrap;
+            margin-left: $spacing-md;
+        }
+    }
+
+    .plan-description {
+        font-size: 0.875rem; // 14px
+        color: $text-secondary;
+        line-height: 1.6;
+        margin-bottom: $spacing-md;
+        // For controlling long descriptions (optional)
+        // max-height: 6.3em; // Approx 3-4 lines
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 3; 
+        // -webkit-box-orient: vertical;
+    }
+    .no-description {
+        font-style: italic;
+        color: $text-muted;
+    }
+
+    .plan-meta {
+        font-size: 0.75rem; // 12px
+        color: $text-muted;
+        border-top: 1px solid $border-color;
+        padding-top: $spacing-md;
+        margin-top: auto; // Pushes meta to bottom of content if description is short
+        
+        small {
+            display: block;
+            &:not(:last-child) { margin-bottom: $spacing-xs; }
+        }
+    }
+
+    .plan-card-actions {
+        display: flex;
+        justify-content: flex-end;
+        padding: $spacing-sm $spacing-lg; // Less vertical padding
+        border-top: 1px solid $border-color;
+        background-color: lighten($background-color, 2%); // Slightly different bg for actions footer
+
+        .btn-icon { // Already defined in .btn general styles
+            margin-left: $spacing-sm;
+        }
+    }
+}
+
+// --- Animations ---
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

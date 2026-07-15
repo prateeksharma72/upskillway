@@ -1,0 +1,143 @@
+/* Overall Page Layout */
+.short60-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    // margin: 1vh; // Removed, page should fill viewport, use padding on content
+    background: #ECF5FE;
+    overflow-x: hidden;
+}
+
+/* Content Container */
+.content-container { // Renamed from original .content-container to avoid class collision if this were global
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto; // Center layout
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+    flex-grow: 1; // Allow content to take up space
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 1rem;
+        gap: 1.5rem;
+    }
+}
+
+/* Sidebar (Assuming similar structure to Learn.scss) */
+.sidebar { /* Styles from Learn.scss can be applied here */
+    width: 280px;
+    flex-shrink: 0;
+    background: rgba(34, 34, 34, 0.9);
+    padding: 25px;
+    height: fit-content;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease-in-out, opacity 0.3s;
+    
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        padding: 20px;
+        // position: relative; // No need for absolute/relative toggle here for stacking
+    }
+
+    .sidebar-title {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: clamp(1.3rem, 4vw, 1.5rem);
+        font-weight: bold;
+    }
+
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { margin-bottom: 15px; }
+
+    // Assuming NavLink is used for active states
+    a {
+        text-decoration: none;
+        color: #fff;
+        font-size: clamp(1rem, 3vw, 1.1rem);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: background 0.3s, transform 0.2s, color 0.3s;
+        font-weight: bold;
+
+        @media (max-width: 1024px) {
+            justify-content: center;
+        }
+    }
+
+    a:hover {
+        background: linear-gradient(135deg, #ffcc00, #ffdd44);
+        color: #222;
+        transform: translateX(10px);
+        box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+        @media (max-width: 1024px) {
+            transform: translateX(0) scale(1.02);
+        }
+    }
+    // Add .active style if NavLink is used and `activeClassName` or `className` prop is set up
+    a.active {
+        background: linear-gradient(135deg, #ffdd44, #ffcc00);
+        color: #111;
+        transform: translateX(5px) scale(1.01);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        @media (max-width: 1024px) {
+            transform: translateX(0) scale(1.03);
+        }
+    }
+}
+
+/* Short60 Section */
+.short-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: clamp(1rem, 3vw, 1.5rem); // Responsive padding
+    margin: 50px; // Replaced by gap
+    background-color: #fff; // Changed from #ECF5FE
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    width: 100%;
+    min-width: 0;
+}
+
+.short-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: bold;
+    color: #c0392b; // Darker red
+    margin-bottom: 1.5rem;
+}
+
+/* Iframe for Short60 */
+.short-iframe {
+    width: 100%;
+    // max-width: 1100px; // Already constrained by parent's width
+    height: 75vh; // Use viewport height for responsiveness, adjust as needed
+    min-height: 500px; // Minimum height
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Adjusted shadow
+
+    @media (max-width: 1024px) { // Breakpoint from original
+        // width: 90%; // Not needed if parent is 100%
+        height: 65vh; // Adjust height for tablets
+        min-height: 400px;
+    }
+    @media (max-width: 768px) {
+        height: 60vh;
+        min-height: 350px;
+    }
+}

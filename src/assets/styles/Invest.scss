@@ -1,0 +1,293 @@
+/* General Container Styling */
+.invest-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+/*
+  The following styles (.invest-section, .invest-heading, etc.)
+  were in the original SCSS but don't seem to be directly used by the JSX structure.
+  They are commented out to focus on the styles actively applied.
+*/
+/*
+.invest-section {
+  text-align: center;
+  padding: 2rem;
+}
+.invest-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.invest-section h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.invest-text {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+.invest-form-container {
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.form-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.invest-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.invest-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.invest-button:hover {
+  background-color: #0056b3;
+}
+*/
+
+/* Hero Section */
+.invest { padding: 6rem 1.5rem 2.5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.invest-hero { text-align: center; margin-bottom: 2.5rem; }
+.invest-hero .hero-title { font-size: 2.4rem; line-height: 1.2; font-weight: 700; color: #111; }
+.invest-hero .hero-title .accent { color: #8bbf6a; }
+.invest-hero .hero-sub { color: #666; max-width: 620px; margin: 10px auto 18px auto; }
+.btn-primary, .btn-secondary { display: inline-block; padding: 12px 22px; border-radius: 8px; text-decoration: none; border: 1px solid transparent; }
+.btn-primary { background: #8bbf6a; color: #fff; }
+.btn-primary:hover { background: #79b257; }
+.btn-secondary { background: #111; color: #fff; }
+.btn-secondary:hover { background: #222; }
+
+/* Investment Philosophy Section */
+.card { background: #fff; box-shadow: 0 12px 30px rgba(0,0,0,0.06); border-radius: 14px; }
+.card-outline { border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 18px; background: #fff; }
+
+.invest-philosophy { display: grid; grid-template-columns: 320px 1fr; align-items: center; gap: 24px; padding: 28px; margin: 0 auto 40px auto; max-width: 1000px; }
+.philo-media img { width: 100%; height: auto; border-radius: 10px; }
+.philo-content { text-align: left; }
+.philo-content h2 { font-size: 2rem; margin-bottom: 10px; }
+.philo-content p { font-size: 1.05rem; line-height: 1.6; color: #444; }
+
+/* Key Benefits Section */
+.invest-benefits { padding: 40px 20px; }
+.invest-benefits h2 { font-size: 2rem; font-weight: 700; margin-bottom: 18px; }
+.accent-text { color: #8bbf6a; }
+.benefit-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+.benefit-item { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 18px; text-align: left; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+.benefit-item h3 { font-size: 1rem; margin-bottom: 6px; }
+.benefit-item p { font-size: 0.95rem; color: #555; }
+
+/* Container for Investment Process and Performance Highlights */
+.invest-process-invest-performance {
+  display: flex;
+  flex-direction: row; // Default for larger screens
+  margin: 20px;
+  gap: 20px;
+}
+
+/* Investment Process Section */
+.invest-process { padding: 36px 20px; }
+.invest-process .process-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 1000px; margin: 0 auto 10px auto; }
+.invest-process h2 { font-size: 2rem; margin: 0; }
+.process-timeline { display: flex; justify-content: center; }
+.process-timeline .timeline { max-width: 100%; height: auto; max-height: 520px; border-radius: 20px; object-fit: contain; }
+
+/* Performance Highlights Section */
+.invest-performance { padding: 34px 20px; max-width: 1100px; margin: 0 auto; }
+.invest-performance h2 { font-size: 2rem; margin-bottom: 14px; text-align: center; }
+.perf-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.perf-card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; padding: 18px; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+.perf-card p { margin-top: 8px; color: #444; font-size: .95rem; }
+.perf-icon { font-size: 20px; color: #8bbf6a; }
+
+/* CTA Section */
+.invest-cta { padding: 40px 20px; text-align: center; }
+.invest-cta h2 { font-size: 1.8rem; margin-bottom: 14px; }
+.cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.compliance { max-width: 900px; margin: 0 auto; }
+
+
+/* Animation Keyframes */
+@keyframes zoomIn {
+  to {
+    opacity: 1;
+    transform: scale(1); // Changed from 1.2 for a more subtle effect
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive Styles --- */
+
+/* Medium devices (tablets, small desktops, 992px and down) */
+@media (max-width: 992px) {
+  .invest-hero .hero-title { font-size: 2.1rem; }
+  .invest-hero .hero-sub { font-size: 1rem; }
+
+  .invest-philosophy {
+    flex-direction: column; // Stack image and text
+    gap: 30px;
+    padding: 40px 20px;
+
+    img { width: 80%; max-width: 400px; }
+    .philosophy-content {
+      max-width: 90%;
+      text-align: center;
+      h2 { font-size: 2.5rem; }
+      p { font-size: 1rem; }
+    }
+  }
+
+  .invest-benefits h2 { font-size: 1.8rem; }
+  .benefit-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+  .invest-process-invest-performance {
+    flex-direction: column; // Stack process and performance sections
+    margin: 15px;
+    gap: 30px;
+  }
+
+  .invest-process, .invest-performance { padding: 30px 15px; max-width: 100%; }
+  .invest-process h2, .invest-performance h2 { font-size: 1.8rem; }
+}
+
+/* Small devices (landscape phones, tablets, 768px and down) */
+@media (max-width: 768px) {
+  .invest-hero { padding: 40px 20px; }
+  .btn-primary { font-size: 15px; padding: 10px 20px; }
+
+  .invest-philosophy {
+    padding: 30px 15px;
+    img { width: 90%; max-width: 350px; }
+    .philosophy-content {
+      h2 { font-size: 2.2rem; }
+      p { font-size: 0.95rem; }
+    }
+  }
+
+  .invest-benefits { padding: 40px 15px; }
+  .benefit-grid { grid-template-columns: 1fr; max-width: 600px; }
+  .benefit-item { margin: 0 auto; }
+  
+  .invest-process h2, .invest-performance h2 { font-size: 1.6rem; }
+  .perf-grid { grid-template-columns: 1fr; }
+  .perf-card { max-width: 520px; margin: 0 auto; }
+
+  .invest-cta { padding: 40px 15px; }
+  .invest-cta h2 { font-size: 1.6rem; }
+  .cta-actions { flex-direction: column; align-items: center; }
+  .btn-primary, .btn-secondary { width: 80%; max-width: 300px; }
+  .compliance h3 { font-size: 1.3rem; }
+  .compliance p { font-size: 0.9rem; }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  .invest-hero {
+    padding: 30px 15px;
+    .invest-heading { font-size: 1.6rem; }
+    .invest-subtext { font-size: 0.9rem; }
+    .primary-btn { font-size: 14px; padding: 10px 18px; }
+  }
+
+  .invest-philosophy {
+    padding: 25px 10px;
+    img { width: 95%; max-width: 300px; }
+    .philosophy-content {
+      h2 { font-size: 1.8rem; }
+      p { font-size: 0.9rem; }
+    }
+  }
+
+  .invest-benefits {
+    padding: 30px 10px;
+    h2 { font-size: 1.6rem; }
+    .benefit-cards .benefit-card {
+      padding: 20px;
+      h3 { font-size: 1.1rem; }
+      p { font-size: 0.9rem; }
+    }
+  }
+
+  .invest-process, .invest-performance {
+    padding: 25px 10px;
+  }
+  .invest-process h2, .invest-performance h2.fade-in-title {
+    font-size: 1.6rem;
+  }
+  .invest-performance .fade-in-item {
+    font-size: 0.9rem;
+    gap: 8px;
+    padding: 10px;
+    .highlight-icon { font-size: 1.2rem; }
+  }
+  .invest-process .process-timeline .timeline {
+    max-height: 400px; // Further constrain timeline image height
+  }
+
+  .invest-cta {
+    padding: 30px 10px;
+    margin: 15px 5px;
+    border-radius: 15px;
+    h2 { font-size: 1.4rem; }
+    .cta-buttons {
+      .primary-btn, .secondary-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+        min-width: 180px;
+      }
+    }
+    section { // Regulatory notes
+      h2 { font-size: 1.2rem; }
+      p { font-size: 0.85rem; }
+    }
+  }
+}
+
+.primary-btn, .secondary-btn {
+  text-decoration: none !important;
+  color: white !important;
+  background: #EE5935;
+  border: none;
+  border-radius: 5px;
+  
+  cursor: pointer;
+  display: inline-block;
+}

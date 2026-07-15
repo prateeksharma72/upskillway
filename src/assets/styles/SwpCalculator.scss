@@ -1,0 +1,442 @@
+// --- Base Container ---
+.swpcalculator-container {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff; // White background
+    min-height: 100vh;
+}
+
+// --- Main Content Area ---
+.swp-main {
+    flex-grow: 1;
+    width: 100%;
+    padding: 6rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr; // Two equal columns
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 4rem 1.5rem 2rem 1.5rem;
+    }
+}
+
+// --- Calculator Section (Left Column) ---
+.calculator-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+
+    @media (max-width: 1024px) {
+        padding: 1.5rem;
+    }
+}
+
+// --- Calculator Title ---
+.calculator-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0 0 2rem 0;
+    text-align: left;
+
+    .accent {
+        color: #8bbf6a;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+}
+
+// --- Calculator Form ---
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+// --- Input Styling ---
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+        border-color: #8bbf6a;
+        box-shadow: 0 0 0 3px rgba(139, 191, 106, 0.1);
+        outline: none;
+    }
+
+    &::placeholder {
+        color: #999;
+    }
+}
+
+.range-slider {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        background: #5848c2;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: #5848c2;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+     &:hover::-webkit-slider-thumb { background: #3e30a1; }
+     &:hover::-moz-range-thumb { background: #3e30a1; }
+}
+
+
+// --- Investment Period Controls ---
+.investment-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-btn {
+    background: #6c5ce7;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    line-height: 1;
+
+    &:hover { background: #5848c2; }
+    &:active { background: #3e30a1; }
+
+    @media (max-width: 480px) {
+        font-size: 16px;
+        padding: 7px 10px;
+    }
+}
+
+.period-input {
+    width: 60px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f8f9fa;
+    color: #333;
+
+    @media (max-width: 480px) {
+        font-size: 15px;
+        padding: 9px;
+        width: 50px;
+    }
+}
+
+// --- Calculate Button ---
+.calculate-btn {
+    background: #8bbf6a;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+
+    &:hover {
+        background: #79b257;
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// --- Results Display ---
+.results-summary {
+    background: #8bbf6a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    span:first-child {
+        font-weight: 500;
+        opacity: 0.9;
+    }
+
+    span:last-child {
+        font-weight: 700;
+    }
+}
+
+
+// --- Testimonial Section (Right Column) ---
+.testimonial-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.testimonial {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.quote-icon {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #8bbf6a;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    background: #8bbf6a;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.author-name {
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.25rem;
+}
+
+.author-title {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dashboard-preview {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+}
+
+.invest-now-button {
+  display: inline-block;
+  background: #ee5935;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 16px;
+  text-decoration: none; // removes underline
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #d94c2b;
+  }
+}
+
+
+// --- Table Section Container ---
+.table-section-container {
+    width: 100%;
+    padding: 0 2rem 4rem 2rem;
+    box-sizing: border-box;
+    background: #f9f9f9;
+
+    @media (max-width: 768px) {
+        padding: 0 1.5rem 3rem 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+        padding: 0 1rem 2rem 1rem;
+    }
+}
+
+// --- Table Section ---
+.table-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+        padding: 1rem;
+    }
+}
+
+// --- Table Title ---
+.table-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 1.5rem 0;
+    text-align: left;
+
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+// --- Results Table ---
+.results-table {
+    margin-top: 1rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #8bbf6a;
+    overflow-x: auto; // Enable horizontal scrolling on small screens
+    box-shadow: 0 4px 16px rgba(139, 191, 106, 0.1);
+}
+
+.results-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px; // Ensure table doesn't get too compressed
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.results-table th {
+    background-color: #8bbf6a;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+}
+
+.results-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.results-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+// --- Responsive Design ---
+@media (max-width: 768px) {
+    .results-table th,
+    .results-table td {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .results-table th,
+    .results-table td {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+// --- Remove potentially conflicting old styles (as per your original comments) ---
+// These are good to keep commented out or remove if not used elsewhere
+// .swpcalculator-display { /* ... */ }
+// .display-button { /* ... */ }
+// input { /* ... */ }
+// input[type="range"] { /* ... */ }
